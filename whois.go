@@ -42,7 +42,7 @@ func License() string {
 
 func Whois(domain string, servers ...string) (result string, err error) {
     var server string
-    if len(servers) == 0 {
+    if len(servers) == 0 || servers[0] == "" {
         domains := strings.SplitN(domain, ".", 2)
         if len(domains) != 2 {
             err = fmt.Errorf("Domain %s is invalid.", domain)
