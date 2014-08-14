@@ -26,7 +26,7 @@ Work for most domain extensions and most of the time.
 
 ## Example
 
-    result, err := Whois("example.com")
+    result, err := whois.Whois("example.com")
     if err != nil {
         fmt.Println(result)
     }
