@@ -41,6 +41,31 @@ func License() string {
 
 
 func Whois(domain string, servers ...string) (result string, err error) {
+    result, err = query(domain, servers...)
+    if err != nil {
+        return
+    }
+
+    start := strings.Index(result, "Whois Server:")
+    if start == -1 {
+        return
+    }
+
+    start += 13
+    end := strings.Index(result[start:], "\n")
+    server := strings.Trim(strings.Replace(result[start:start + end], "\r", "", -1), " ")
+    tmp_result, err := query(domain, server)
+    if err != nil {
+        return
+    }
+
+    result += tmp_result
+
+    return
+}
+
+
+func query(domain string, servers ...string) (result string, err error) {
     var server string
     if len(servers) == 0 || servers[0] == "" {
         domains := strings.SplitN(domain, ".", 2)
