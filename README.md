@@ -41,6 +41,10 @@ Copyright 2014, Kexian Li
 
 Apache License, Version 2.0
 
+## Whois info parser in Go
+
+Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
+
 ## About
 
 - [Kexian Li](http://github.com/likexian)
