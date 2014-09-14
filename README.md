@@ -12,7 +12,7 @@ cli/main.go: A golang cli command for domain whois query.
 
 cli/build.sh: Build the cli command and test it.
 
-Work for most domain extensions and most of the time.
+*Work for most domain extensions and most of the time.*
 
 ## Installation
 
