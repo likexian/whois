@@ -31,7 +31,7 @@ cli/build.sh: Build the cli command and test it.
 ## Example
 
     result, err := whois.Whois("example.com")
-    if err != nil {
+    if err == nil {
         fmt.Println(result)
     }
 
