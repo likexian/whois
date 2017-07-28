@@ -46,14 +46,17 @@ func Whois(domain string, servers ...string) (result string, err error) {
         return
     }
 
-    start := strings.Index(result, "Whois Server:")
+    start := strings.Index(result, "Registrar WHOIS Server:")
     if start == -1 {
         return
     }
 
-    start += 13
+    start += 23
     end := strings.Index(result[start:], "\n")
     server := strings.Trim(strings.Replace(result[start:start + end], "\r", "", -1), " ")
+    if server == "" {
+        return
+    }
     tmp_result, err := query(domain, server)
     if err != nil {
         return
