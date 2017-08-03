@@ -32,4 +32,8 @@ func TestWhois(t *testing.T) {
     result, err = Whois("likexian.com", "com.whois-servers.net")
     assert.Equal(t, nil, err)
     assert.NotEqual(t, "", result)
+
+    result, err = Whois("likexian.com.cn")
+    assert.Equal(t, nil, err)
+    assert.NotEqual(t, "", result)
 }

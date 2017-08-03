@@ -80,7 +80,7 @@ func query(domain string, servers ...string) (result string, err error) {
     if len(servers) == 0 || servers[0] == "" {
         domains := strings.Split(domain, ".")
         if len(domains) < 2 {
-            err = fmt.Errorf("Domain %s is invalid.", domain)
+            err = fmt.Errorf("Domain %s is invalid", domain)
             return
         }
         server = domains[len(domains) - 1] + "." + WHOIS_DOMAIN
@@ -88,20 +88,21 @@ func query(domain string, servers ...string) (result string, err error) {
         server = servers[0]
     }
 
-    conn, err := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second * 30)
-    if err != nil {
+    conn, e := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second * 30)
+    if e != nil {
+        err = e
         return
     }
 
     defer conn.Close()
     conn.Write([]byte(domain + "\r\n"))
-    var buffer []byte
-    buffer, err = ioutil.ReadAll(conn)
+    buffer, e := ioutil.ReadAll(conn)
     if err != nil {
+        err = e
         return
     }
 
-    result = string(buffer[:])
+    result = string(buffer)
 
     return
 }
