@@ -41,6 +41,12 @@ func License() string {
 
 
 func Whois(domain string, servers ...string) (result string, err error) {
+    domain = strings.Trim(strings.Trim(domain, " "), ".")
+    if domain == "" {
+        err = fmt.Errorf("Domain is empty")
+        return
+    }
+
     result, err = query(domain, servers...)
     if err != nil {
         return
@@ -72,12 +78,12 @@ func Whois(domain string, servers ...string) (result string, err error) {
 func query(domain string, servers ...string) (result string, err error) {
     var server string
     if len(servers) == 0 || servers[0] == "" {
-        domains := strings.SplitN(domain, ".", 2)
-        if len(domains) != 2 {
+        domains := strings.Split(domain, ".")
+        if len(domains) < 2 {
             err = fmt.Errorf("Domain %s is invalid.", domain)
             return
         }
-        server = domains[1] + "." + WHOIS_DOMAIN
+        server = domains[len(domains) - 1] + "." + WHOIS_DOMAIN
     } else {
         server = servers[0]
     }
@@ -97,5 +103,5 @@ func query(domain string, servers ...string) (result string, err error) {
     conn.Close()
     result = string(buffer[:])
 
-    return 
+    return
 }
