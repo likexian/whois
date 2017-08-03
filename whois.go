@@ -26,7 +26,7 @@ const (
 
 
 func Version() string {
-    return "0.3.0"
+    return "0.5.0"
 }
 
 
@@ -93,6 +93,7 @@ func query(domain string, servers ...string) (result string, err error) {
         return
     }
 
+    defer conn.Close()
     conn.Write([]byte(domain + "\r\n"))
     var buffer []byte
     buffer, err = ioutil.ReadAll(conn)
@@ -100,7 +101,6 @@ func query(domain string, servers ...string) (result string, err error) {
         return
     }
 
-    conn.Close()
     result = string(buffer[:])
 
     return
