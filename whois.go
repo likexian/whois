@@ -1,8 +1,8 @@
 /*
  * Go module for domain whois
- * http://www.likexian.com/
+ * https://www.likexian.com/
  *
- * Copyright 2014, Kexian Li
+ * Copyright 2014-2017, Li Kexian
  * Released under the Apache License, Version 2.0
  *
  */
@@ -26,12 +26,12 @@ const (
 
 
 func Version() string {
-    return "0.1.0"
+    return "0.3.0"
 }
 
 
 func Author() string {
-    return "[Li Kexian](http://www.likexian.com/)"
+    return "[Li Kexian](https://www.likexian.com/)"
 }
 
 
@@ -57,6 +57,7 @@ func Whois(domain string, servers ...string) (result string, err error) {
     if server == "" {
         return
     }
+
     tmp_result, err := query(domain, server)
     if err != nil {
         return

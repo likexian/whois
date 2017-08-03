@@ -1,8 +1,8 @@
 /*
  * Go module for domain whois
- * http://www.likexian.com/
+ * https://www.likexian.com/
  *
- * Copyright 2014, Kexian Li
+ * Copyright 2014-2017, Li Kexian
  * Released under the Apache License, Version 2.0
  *
  */
@@ -13,13 +13,13 @@ package main
 import (
     "fmt"
     "os"
-    ".."
+    "github.com/likexian/whois-go"
 )
 
 
 func main() {
     if len(os.Args) < 2 {
-        fmt.Println(fmt.Sprintf("usage:\n\t%s domain[ server]", os.Args[0]))
+        fmt.Println(fmt.Sprintf("usage:\n\t%s domain [server]", os.Args[0]))
         os.Exit(1)
     }
 

@@ -8,9 +8,7 @@ whois-go is a simple Go module for domain whois.
 
 whois.go: A golang module for domain whois query.
 
-cli/main.go: A golang cli command for domain whois query.
-
-cli/build.sh: Build the cli command and test it.
+whois: A golang cli command for domain whois query.
 
 *Work for most domain extensions and most of the time.*
 
@@ -35,17 +33,20 @@ cli/build.sh: Build the cli command and test it.
         fmt.Println(result)
     }
 
-## LICENSE
-
-Copyright 2014, Kexian Li
-
-Apache License, Version 2.0
-
 ## Whois info parser in Go
 
 Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
 
+## LICENSE
+
+Copyright 2014-2017, Li Kexian
+
+Apache License, Version 2.0
+
+## DONATE
+
+- [Help me make perfect](https://www.likexian.com/en-US/donate/)
+
 ## About
 
-- [Kexian Li](http://github.com/likexian)
-- [http://www.likexian.com/](http://www.likexian.com/)
+- [Li Kexian](https://www.likexian.com/)
