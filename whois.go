@@ -97,7 +97,7 @@ func query(domain string, servers ...string) (result string, err error) {
     defer conn.Close()
     conn.Write([]byte(domain + "\r\n"))
     buffer, e := ioutil.ReadAll(conn)
-    if err != nil {
+    if e != nil {
         err = e
         return
     }
