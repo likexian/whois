@@ -10,7 +10,7 @@ whois.go: A golang module for domain whois query.
 
 whois: A golang cli command for domain whois query.
 
-*Work for most domain extensions and most of the time.*
+*Works for most domain extensions most of the time.*
 
 ## Installation
 
