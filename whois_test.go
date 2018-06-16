@@ -9,31 +9,29 @@
 
 package whois
 
-
 import (
-    "testing"
-    "github.com/bmizerany/assert"
+	"github.com/bmizerany/assert"
+	"testing"
 )
 
-
 func TestWhois(t *testing.T) {
-    result, err := Whois("likexian")
-    assert.NotEqual(t, nil, err)
-    assert.Equal(t, "", result)
+	result, err := Whois("likexian")
+	assert.NotEqual(t, nil, err)
+	assert.Equal(t, "", result)
 
-    result, err = Whois("likexian.com")
-    assert.Equal(t, nil, err)
-    assert.NotEqual(t, "", result)
+	result, err = Whois("likexian.com")
+	assert.Equal(t, nil, err)
+	assert.NotEqual(t, "", result)
 
-    result, err = Whois("likexian.com", "127.0.0.1")
-    assert.NotEqual(t, nil, err)
-    assert.Equal(t, "", result)
+	result, err = Whois("likexian.com", "127.0.0.1")
+	assert.NotEqual(t, nil, err)
+	assert.Equal(t, "", result)
 
-    result, err = Whois("likexian.com", "com.whois-servers.net")
-    assert.Equal(t, nil, err)
-    assert.NotEqual(t, "", result)
+	result, err = Whois("likexian.com", "com.whois-servers.net")
+	assert.Equal(t, nil, err)
+	assert.NotEqual(t, "", result)
 
-    result, err = Whois("likexian.com.cn")
-    assert.Equal(t, nil, err)
-    assert.NotEqual(t, "", result)
+	result, err = Whois("likexian.com.cn")
+	assert.Equal(t, nil, err)
+	assert.NotEqual(t, "", result)
 }
