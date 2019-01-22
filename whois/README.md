@@ -6,25 +6,25 @@ whois is a release tool for domain and ip whois info query.
 
 Binary distributions available for Linux x86 and x86_64.
 
-### linux x86
-
-    wget https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86.tar.gz
-
-OR
-
-    curl https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86.tar.gz -O
-
 ### linux x86_64
 
     wget https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86_64.tar.gz
 
 OR
 
-    curl https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86_64.tar.gz -O
+    curl https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86_64.tar.gz -OL
+
+### linux x86
+
+    wget https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86.tar.gz
+
+OR
+
+    curl https://github.com/likexian/whois-go/releases/download/v1.0.0/whois.linux-x86.tar.gz -OL
 
 ## install whois
 
-    tar zxvf whois.linux-*.tar.gz
+    tar zxf whois.linux-*.tar.gz
     mv /usr/bin/whois /usr/bin/whois.old
     mv whois /usr/bin/whois
 
