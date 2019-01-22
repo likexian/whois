@@ -12,28 +12,37 @@ package whois
 
 import (
     "testing"
-    "github.com/bmizerany/assert"
 )
 
 
 func TestWhois(t *testing.T) {
-    result, err := Whois("likexian")
-    assert.NotEqual(t, nil, err)
-    assert.Equal(t, "", result)
+    _, err := Whois("likexian")
+    if err == nil {
+        t.Error("Not a domain shall got error")
+    }
 
-    result, err = Whois("likexian.com")
-    assert.Equal(t, nil, err)
-    assert.NotEqual(t, "", result)
+    test_domains := []string{
+        "likexian.com",
+        "likexian.net",
+        "likexian.org",
+        "likexian.cn",
+        "likexian.com.cn",
+    }
 
-    result, err = Whois("likexian.com", "127.0.0.1")
-    assert.NotEqual(t, nil, err)
-    assert.Equal(t, "", result)
+    for _, v := range test_domains {
+        _, err = Whois(v)
+        if err != nil {
+            t.Errorf("Domain %s shall got result but got an error: %s", v, err.Error())
+        }
+    }
 
-    result, err = Whois("likexian.com", "com.whois-servers.net")
-    assert.Equal(t, nil, err)
-    assert.NotEqual(t, "", result)
+    _, err = Whois("likexian.com", "127.0.0.1")
+    if err == nil {
+        t.Error("Invalid server shall got error")
+    }
 
-    result, err = Whois("likexian.com.cn")
-    assert.Equal(t, nil, err)
-    assert.NotEqual(t, "", result)
+    _, err = Whois("likexian.com", "com.whois-servers.net")
+    if err != nil {
+        t.Errorf("Domain shall got result but got and error: %s", err.Error())
+    }
 }
