@@ -109,6 +109,7 @@ func query(domain string, servers ...string) (result string, err error) {
 
     defer conn.Close()
     conn.Write([]byte(domain + "\r\n"))
+    conn.SetReadDeadline(time.Now().Add(time.Second * 30))
     buffer, e := ioutil.ReadAll(conn)
     if e != nil {
         err = e
