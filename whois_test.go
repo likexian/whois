@@ -21,12 +21,22 @@ func TestWhois(t *testing.T) {
         t.Error("Not a domain shall got error")
     }
 
+    _, err = Whois("8.8.8.888")
+    if err == nil {
+        t.Error("Not an ip shall got error")
+    }
+
     test_domains := []string{
         "likexian.com",
         "likexian.net",
         "likexian.org",
         "likexian.cn",
         "likexian.com.cn",
+        "1.1.1.1",
+        "2.1.1.1",
+        "3.1.1.1",
+        "4.1.1.1",
+        "5.1.1.1",
     }
 
     for _, v := range test_domains {

@@ -20,13 +20,14 @@ import (
 
 
 const (
-    WHOIS_DOMAIN = "whois-servers.net"
+    IP_WHOIS_SERVER = "whois.iana.org"
+    DOMAIN_WHOIS_SERVER = "whois-servers.net"
     WHOIS_PORT = "43"
 )
 
 
 func Version() string {
-    return "0.5.0"
+    return "1.0.0"
 }
 
 
@@ -41,7 +42,7 @@ func License() string {
 
 
 func Whois(domain string, servers ...string) (result string, err error) {
-    domain = strings.Trim(strings.Trim(domain, " "), ".")
+    domain = strings.Trim(strings.TrimSpace(domain), ".")
     if domain == "" {
         err = fmt.Errorf("Domain is empty")
         return
@@ -52,14 +53,19 @@ func Whois(domain string, servers ...string) (result string, err error) {
         return
     }
 
-    start := strings.Index(result, "Registrar WHOIS Server:")
+    token := "Registrar WHOIS Server:"
+    if IsIpv4(domain) {
+        token = "whois:"
+    }
+
+    start := strings.Index(result, token)
     if start == -1 {
         return
     }
 
-    start += 23
+    start += len(token)
     end := strings.Index(result[start:], "\n")
-    server := strings.Trim(strings.Replace(result[start:start + end], "\r", "", -1), " ")
+    server := strings.TrimSpace(result[start:start + end])
     if server == "" {
         return
     }
@@ -78,14 +84,21 @@ func Whois(domain string, servers ...string) (result string, err error) {
 func query(domain string, servers ...string) (result string, err error) {
     var server string
     if len(servers) == 0 || servers[0] == "" {
-        domains := strings.Split(domain, ".")
-        if len(domains) < 2 {
-            err = fmt.Errorf("Domain %s is invalid", domain)
-            return
+        if IsIpv4(domain) {
+            server = IP_WHOIS_SERVER
+        } else {
+            domains := strings.Split(domain, ".")
+            if len(domains) < 2 {
+                err = fmt.Errorf("Domain %s is invalid", domain)
+                return
+            }
+            server = domains[len(domains) - 1] + "." + DOMAIN_WHOIS_SERVER
         }
-        server = domains[len(domains) - 1] + "." + WHOIS_DOMAIN
     } else {
         server = servers[0]
+        if server == "whois.arin.net" {
+            domain = "n + " + domain
+        }
     }
 
     conn, e := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second * 30)
@@ -105,4 +118,10 @@ func query(domain string, servers ...string) (result string, err error) {
     result = string(buffer)
 
     return
+}
+
+
+func IsIpv4(ip string) (bool) {
+    i := net.ParseIP(ip)
+    return i.To4() != nil
 }

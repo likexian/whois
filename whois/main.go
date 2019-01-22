@@ -13,7 +13,7 @@ package main
 import (
     "fmt"
     "os"
-    "github.com/likexian/whois-go"
+    ".."
 )
 
 

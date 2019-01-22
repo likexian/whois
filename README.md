@@ -1,16 +1,16 @@
 # whois.go
 
-whois-go is a simple Go module for domain whois info query.
+whois-go is a simple Go module for domain and ip whois info query.
 
 [![Build Status](https://secure.travis-ci.org/likexian/whois-go.png)](https://secure.travis-ci.org/likexian/whois-go)
 
 ## Overview
 
-whois.go: A golang module for domain whois query.
+whois.go: A golang module for domain and ip whois query.
 
-whois: A golang cli command for domain whois query.
+whois: A golang cli command for domain and ip whois query.
 
-*Works for most domain extensions most of the time.*
+*Works for most domain extensions and most ip most of the time.*
 
 ## Installation
 
@@ -29,6 +29,11 @@ whois: A golang cli command for domain whois query.
 ## Example
 
     result, err := whois.Whois("example.com")
+    if err == nil {
+        fmt.Println(result)
+    }
+
+    result, err := whois.Whois("1.1.1.1")
     if err == nil {
         fmt.Println(result)
     }
