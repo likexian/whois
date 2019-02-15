@@ -26,7 +26,7 @@ func TestWhois(t *testing.T) {
         t.Error("Not an ip shall got error")
     }
 
-    test_domains := []string{
+    testDomains := []string{
         "likexian.com",
         "likexian.net",
         "likexian.org",
@@ -39,7 +39,7 @@ func TestWhois(t *testing.T) {
         "5.1.1.1",
     }
 
-    for _, v := range test_domains {
+    for _, v := range testDomains {
         _, err = Whois(v)
         if err != nil {
             t.Errorf("Domain %s shall got result but got an error: %s", v, err.Error())

@@ -19,6 +19,7 @@ import (
 )
 
 
+// Query server const
 const (
     IP_WHOIS_SERVER = "whois.iana.org"
     DOMAIN_WHOIS_SERVER = "whois-servers.net"
@@ -26,21 +27,25 @@ const (
 )
 
 
+// Version returns package version
 func Version() string {
     return "1.0.0"
 }
 
 
+// Author returns package author
 func Author() string {
     return "[Li Kexian](https://www.likexian.com/)"
 }
 
 
+// License returns package license
 func License() string {
     return "Apache License, Version 2.0"
 }
 
 
+// Whois do the whois query and returns whois info
 func Whois(domain string, servers ...string) (result string, err error) {
     domain = strings.Trim(strings.TrimSpace(domain), ".")
     if domain == "" {
@@ -70,17 +75,18 @@ func Whois(domain string, servers ...string) (result string, err error) {
         return
     }
 
-    tmp_result, err := query(domain, server)
+    tmpResult, err := query(domain, server)
     if err != nil {
         return
     }
 
-    result += tmp_result
+    result += tmpResult
 
     return
 }
 
 
+// query do the query
 func query(domain string, servers ...string) (result string, err error) {
     var server string
     if len(servers) == 0 || servers[0] == "" {
@@ -122,6 +128,7 @@ func query(domain string, servers ...string) (result string, err error) {
 }
 
 
+// IsIpv4 returns a string is a ipv4 ip
 func IsIpv4(ip string) (bool) {
     i := net.ParseIP(ip)
     return i.To4() != nil
