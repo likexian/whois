@@ -26,7 +26,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.0.0"
+	return "1.0.1"
 }
 
 // Author returns package author
@@ -94,7 +94,7 @@ func query(domain string, servers ...string) (result string, err error) {
 			server = domains[len(domains)-1] + "." + DOMAIN_WHOIS_SERVER
 		}
 	} else {
-		server = servers[0]
+		server = strings.ToLower(servers[0])
 		if server == "whois.arin.net" {
 			domain = "n + " + domain
 		}
@@ -109,6 +109,7 @@ func query(domain string, servers ...string) (result string, err error) {
 	defer conn.Close()
 	conn.Write([]byte(domain + "\r\n"))
 	conn.SetReadDeadline(time.Now().Add(time.Second * 30))
+
 	buffer, e := ioutil.ReadAll(conn)
 	if e != nil {
 		err = e
@@ -120,7 +121,7 @@ func query(domain string, servers ...string) (result string, err error) {
 	return
 }
 
-// IsIpv4 returns a string is a ipv4 ip
+// IsIpv4 returns string is an ipv4 ip
 func IsIpv4(ip string) bool {
 	i := net.ParseIP(ip)
 	return i.To4() != nil
