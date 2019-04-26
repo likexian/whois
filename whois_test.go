@@ -13,28 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Go module for domain whois
+ * Go module for domain whois info query
  * https://www.likexian.com/
  */
 
 package whois
 
 import (
+	"github.com/likexian/gokit/assert"
 	"testing"
 )
 
+func TestVersion(t *testing.T) {
+	assert.Contains(t, Version(), ".")
+	assert.Contains(t, Author(), "likexian")
+	assert.Contains(t, License(), "Apache License")
+}
+
+func TestWhoisFail(t *testing.T) {
+	tests := []string {
+		"",
+		"likexian",
+		"8.8.8.888",
+	}
+
+	for _, v := range tests {
+		_, err := Whois(v)
+		assert.NotNil(t, err)
+	}
+
+	_, err := Whois("likexian.com", "127.0.0.1")
+	assert.NotNil(t, err)
+}
+
 func TestWhois(t *testing.T) {
-	_, err := Whois("likexian")
-	if err == nil {
-		t.Error("Not a domain shall got error")
-	}
-
-	_, err = Whois("8.8.8.888")
-	if err == nil {
-		t.Error("Not an ip shall got error")
-	}
-
-	testDomains := []string{
+	tests := []string{
 		"likexian.com",
 		"likexian.net",
 		"likexian.org",
@@ -47,20 +60,12 @@ func TestWhois(t *testing.T) {
 		"5.1.1.1",
 	}
 
-	for _, v := range testDomains {
-		_, err = Whois(v)
-		if err != nil {
-			t.Errorf("Domain %s shall got result but got an error: %s", v, err.Error())
-		}
+	for _, v := range tests {
+		b, err := Whois(v)
+		assert.Nil(t, err)
+		assert.NotEqual(t, b, "")
 	}
 
-	_, err = Whois("likexian.com", "127.0.0.1")
-	if err == nil {
-		t.Error("Invalid server shall got error")
-	}
-
-	_, err = Whois("likexian.com", "com.whois-servers.net")
-	if err != nil {
-		t.Errorf("Domain shall got result but got and error: %s", err.Error())
-	}
+	_, err := Whois("likexian.com", "com.whois-servers.net")
+	assert.Nil(t, err)
 }
