@@ -17,7 +17,7 @@ Or you can do development by using the golang module as below.
 
 ## Installation
 
-    go get github.com/likexian/whois-go
+    go get -u github.com/likexian/whois-go
 
 ## Importing
 
@@ -27,19 +27,23 @@ Or you can do development by using the golang module as below.
 
 ## Documentation
 
-    func Whois(domain string, servers ...string) (result string, err error)
+Visit the docs on [GoDoc](https://godoc.org/github.com/likexian/whois-go)
 
 ## Example
 
-    result, err := whois.Whois("example.com")
-    if err == nil {
-        fmt.Println(result)
-    }
+```go
+// whois query for domain
+result, err := whois.Whois("example.com")
+if err == nil {
+    fmt.Println(result)
+}
 
-    result, err := whois.Whois("1.1.1.1")
-    if err == nil {
-        fmt.Println(result)
-    }
+// whois query for ip
+result, err := whois.Whois("1.1.1.1")
+if err == nil {
+    fmt.Println(result)
+}
+```
 
 ## Whois info parser in Go
 
@@ -47,9 +51,9 @@ Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
 
 ## LICENSE
 
-Copyright 2014-2019, Li Kexian
+Copyright 2014-2019 Li Kexian
 
-Apache License, Version 2.0
+Licensed under the Apache License 2.0
 
 ## About
 
