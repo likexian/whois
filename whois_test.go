@@ -31,7 +31,7 @@ func TestVersion(t *testing.T) {
 }
 
 func TestWhoisFail(t *testing.T) {
-	tests := []string {
+	tests := []string{
 		"",
 		"likexian",
 		"8.8.8.888",
@@ -53,6 +53,7 @@ func TestWhois(t *testing.T) {
 		"likexian.org",
 		"likexian.cn",
 		"likexian.com.cn",
+		"aaa.mobi",
 		"1.1.1.1",
 		"2.1.1.1",
 		"3.1.1.1",
