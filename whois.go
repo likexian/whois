@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Go module for domain whois info query
+ * Go module for domain and ip whois info query
  * https://www.likexian.com/
  */
 
@@ -36,7 +36,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.0.2"
+	return "1.0.3"
 }
 
 // Author returns package author
@@ -46,7 +46,7 @@ func Author() string {
 
 // License returns package license
 func License() string {
-	return "Apache License, Version 2.0"
+	return "Licensed under the Apache License 2.0"
 }
 
 // Whois do the whois query and returns whois info

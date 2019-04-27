@@ -32,14 +32,18 @@ Visit the docs on [GoDoc](https://godoc.org/github.com/likexian/whois-go)
 
 ## Example
 
+### whois query for domain
+
 ```go
-// whois query for domain
 result, err := whois.Whois("example.com")
 if err == nil {
     fmt.Println(result)
 }
+```
 
-// whois query for ip
+### whois query for ip
+
+```go
 result, err := whois.Whois("1.1.1.1")
 if err == nil {
     fmt.Println(result)

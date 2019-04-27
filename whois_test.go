@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Go module for domain whois info query
+ * Go module for domain and ip whois info query
  * https://www.likexian.com/
  */
 
