@@ -21,7 +21,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/likexian/whois-go"
+	"github.com/mailgun/whois-go"
 	"os"
 )
 
