@@ -36,7 +36,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.0.3"
+	return "1.0.5"
 }
 
 // Author returns package author
@@ -117,8 +117,11 @@ func query(domain string, servers ...string) (result string, err error) {
 	}
 
 	defer conn.Close()
-	conn.Write([]byte(domain + "\r\n"))
-	conn.SetReadDeadline(time.Now().Add(time.Second * 30))
+	_ = conn.SetReadDeadline(time.Now().Add(time.Second * 30))
+	_, err = conn.Write([]byte(domain + "\r\n"))
+	if err != nil {
+		return
+	}
 
 	buffer, e := ioutil.ReadAll(conn)
 	if e != nil {

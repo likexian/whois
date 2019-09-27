@@ -21,8 +21,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/likexian/whois-go"
 	"os"
+
+	"github.com/likexian/whois-go"
 )
 
 func main() {
