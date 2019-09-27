@@ -10,7 +10,7 @@ whois-go is a simple Go module for domain and ip whois info query.
 
 ## Overview
 
-You can directly using the binary distributions whois, follow [whois release tool](whois).
+You can directly using the binary distributions whois, follow [whois release tool](cmd).
 
 Or you can do development by using the golang module as below.
 
