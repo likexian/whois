@@ -35,6 +35,7 @@ func TestWhoisFail(t *testing.T) {
 	tests := []string{
 		"",
 		"likexian",
+		"likexian.jp?e",
 		"8.8.8.888",
 	}
 
@@ -54,7 +55,8 @@ func TestWhois(t *testing.T) {
 		"likexian.org",
 		"likexian.cn",
 		"likexian.com.cn",
-		"aaa.mobi",
+		"likexian.mobi",
+		"likexian.jp/e",
 		"1.1.1.1",
 		"2.1.1.1",
 		"3.1.1.1",

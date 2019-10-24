@@ -36,7 +36,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.0.5"
+	return "1.1.0"
 }
 
 // Author returns package author
@@ -101,7 +101,11 @@ func query(domain string, servers ...string) (result string, err error) {
 				err = fmt.Errorf("Domain %s is invalid", domain)
 				return
 			}
-			server = domains[len(domains)-1] + "." + DOMAIN_WHOIS_SERVER
+			ext := domains[len(domains)-1]
+			if strings.Contains(ext, "/") {
+				ext = strings.Split(ext, "/")[0]
+			}
+			server = ext + "." + DOMAIN_WHOIS_SERVER
 		}
 	} else {
 		server = strings.ToLower(servers[0])
