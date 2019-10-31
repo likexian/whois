@@ -20,6 +20,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -27,17 +28,22 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println(fmt.Sprintf("usage:\n\t%s domain [server]", os.Args[0]))
+	server := flag.String("h", "", "specify the whois server")
+	version := flag.Bool("v", false, "show the whois version")
+	flag.Parse()
+
+	if *version {
+		fmt.Println("whois version " + whois.Version())
+		fmt.Println(whois.Author())
+		os.Exit(0)
+	}
+
+	if len(flag.Args()) == 0 {
+		fmt.Println(fmt.Sprintf("usage:\n\t%s [-h server] domain", os.Args[0]))
 		os.Exit(1)
 	}
 
-	var server string
-	if len(os.Args) > 2 {
-		server = os.Args[2]
-	}
-
-	result, err := whois.Whois(os.Args[1], server)
+	result, err := whois.Whois(flag.Args()[0], *server)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
