@@ -27,16 +27,18 @@ import (
 	"time"
 )
 
-// Query server const
 const (
-	IP_WHOIS_SERVER     = "whois.iana.org"
+	// IANA_WHOIS_SERVER is iana whois server
+	IANA_WHOIS_SERVER = "whois.iana.org"
+	// DOMAIN_WHOIS_SERVER is tld whois server
 	DOMAIN_WHOIS_SERVER = "whois-servers.net"
-	WHOIS_PORT          = "43"
+	// WHOIS_PORT is default whois port
+	WHOIS_PORT = "43"
 )
 
 // Version returns package version
 func Version() string {
-	return "1.2.0"
+	return "1.3.0"
 }
 
 // Author returns package author
@@ -91,21 +93,17 @@ func Whois(domain string, servers ...string) (result string, err error) {
 
 // query do the query
 func query(domain string, servers ...string) (result string, err error) {
-	var server string
+	server := IANA_WHOIS_SERVER
 	if len(servers) == 0 || servers[0] == "" {
-		if IsIpv4(domain) {
-			server = IP_WHOIS_SERVER
-		} else {
+		if !IsIpv4(domain) {
 			domains := strings.Split(domain, ".")
-			if len(domains) < 2 {
-				err = fmt.Errorf("Domain %s is invalid", domain)
-				return
+			if len(domains) > 1 {
+				ext := domains[len(domains)-1]
+				if strings.Contains(ext, "/") {
+					ext = strings.Split(ext, "/")[0]
+				}
+				server = ext + "." + DOMAIN_WHOIS_SERVER
 			}
-			ext := domains[len(domains)-1]
-			if strings.Contains(ext, "/") {
-				ext = strings.Split(ext, "/")[0]
-			}
-			server = ext + "." + DOMAIN_WHOIS_SERVER
 		}
 	} else {
 		server = strings.ToLower(servers[0])
@@ -127,9 +125,8 @@ func query(domain string, servers ...string) (result string, err error) {
 		return
 	}
 
-	buffer, e := ioutil.ReadAll(conn)
-	if e != nil {
-		err = e
+	buffer, err := ioutil.ReadAll(conn)
+	if err != nil {
 		return
 	}
 

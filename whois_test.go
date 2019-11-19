@@ -34,7 +34,6 @@ func TestVersion(t *testing.T) {
 func TestWhoisFail(t *testing.T) {
 	tests := []string{
 		"",
-		"likexian",
 		"likexian.jp?e",
 		"8.8.8.888",
 	}
@@ -50,6 +49,7 @@ func TestWhoisFail(t *testing.T) {
 
 func TestWhois(t *testing.T) {
 	tests := []string{
+		"com",
 		"likexian.com",
 		"google.net",
 		"google.org",

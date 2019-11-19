@@ -8,19 +8,19 @@ Binary distributions available for Linux x86 and x86_64.
 
 ### linux x86_64
 
-    wget https://github.com/likexian/whois-go/releases/download/v1.2.0/whois.linux-amd64.tar.gz
+    wget https://github.com/likexian/whois-go/releases/download/v1.3.0/whois.linux-amd64.tar.gz
 
 OR
 
-    curl https://github.com/likexian/whois-go/releases/download/v1.2.0/whois.linux-amd64.tar.gz -OL
+    curl https://github.com/likexian/whois-go/releases/download/v1.3.0/whois.linux-amd64.tar.gz -OL
 
 ### linux x86
 
-    wget https://github.com/likexian/whois-go/releases/download/v1.2.0/whois.linux-386.tar.gz
+    wget https://github.com/likexian/whois-go/releases/download/v1.3.0/whois.linux-386.tar.gz
 
 OR
 
-    curl https://github.com/likexian/whois-go/releases/download/v1.2.0/whois.linux-386.tar.gz -OL
+    curl https://github.com/likexian/whois-go/releases/download/v1.3.0/whois.linux-386.tar.gz -OL
 
 ## install whois
 
