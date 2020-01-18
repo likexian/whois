@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Li Kexian
+ * Copyright 2014-2020 Li Kexian
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.3.0"
+	return "1.3.2"
 }
 
 // Author returns package author

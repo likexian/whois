@@ -56,7 +56,7 @@ Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
 
 ## LICENSE
 
-Copyright 2014-2019 Li Kexian
+Copyright 2014-2020 Li Kexian
 
 Licensed under the Apache License 2.0
 
