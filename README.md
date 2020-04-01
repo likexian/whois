@@ -41,10 +41,19 @@ if err == nil {
 }
 ```
 
-### whois query for ip
+### whois query for ipv4
 
 ```go
 result, err := whois.Whois("1.1.1.1")
+if err == nil {
+    fmt.Println(result)
+}
+```
+
+### whois query for ipv6
+
+```go
+result, err := whois.Whois("2001:dc7::1")
 if err == nil {
     fmt.Println(result)
 }

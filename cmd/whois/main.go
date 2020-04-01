@@ -39,7 +39,7 @@ func main() {
 	}
 
 	if len(flag.Args()) == 0 {
-		fmt.Println(fmt.Sprintf("usage:\n\t%s [-h server] domain", os.Args[0]))
+		fmt.Printf("usage:\n\t%s [-h server] domain", os.Args[0])
 		os.Exit(1)
 	}
 

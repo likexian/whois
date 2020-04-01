@@ -30,15 +30,13 @@ import (
 const (
 	// IANA_WHOIS_SERVER is iana whois server
 	IANA_WHOIS_SERVER = "whois.iana.org"
-	// DOMAIN_WHOIS_SERVER is tld whois server
-	DOMAIN_WHOIS_SERVER = "whois-servers.net"
-	// WHOIS_PORT is default whois port
-	WHOIS_PORT = "43"
+	// DEFAULT_WHOIS_PORT is default whois port
+	DEFAULT_WHOIS_PORT = "43"
 )
 
 // Version returns package version
 func Version() string {
-	return "1.3.2"
+	return "1.4.0"
 }
 
 // Author returns package author
@@ -59,75 +57,66 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		return
 	}
 
+	if net.ParseIP(domain) == nil && !strings.Contains(domain, ".") {
+		return query(domain, IANA_WHOIS_SERVER)
+	}
+
 	result, err = query(domain, servers...)
 	if err != nil {
 		return
 	}
 
-	token := "Registrar WHOIS Server:"
-	if IsIpv4(domain) {
-		token = "whois:"
-	}
-
-	start := strings.Index(result, token)
-	if start == -1 {
-		return
-	}
-
-	start += len(token)
-	end := strings.Index(result[start:], "\n")
-	server := strings.TrimSpace(result[start : start+end])
+	server := getServer(result)
 	if server == "" {
 		return
 	}
 
-	tmpResult, err := query(domain, server)
+	data, err := query(domain, server)
 	if err != nil {
 		return
 	}
 
-	result += tmpResult
+	result += data
 
 	return
 }
 
 // query do the query
 func query(domain string, servers ...string) (result string, err error) {
-	server := IANA_WHOIS_SERVER
+	var server string
 	if len(servers) == 0 || servers[0] == "" {
-		if !IsIpv4(domain) {
-			domains := strings.Split(domain, ".")
-			if len(domains) > 1 {
-				ext := domains[len(domains)-1]
-				if strings.Contains(ext, "/") {
-					ext = strings.Split(ext, "/")[0]
-				}
-				server = ext + "." + DOMAIN_WHOIS_SERVER
-			}
+		ext := getExtension(domain)
+		result, err = query(ext, IANA_WHOIS_SERVER)
+		if err != nil {
+			return "", fmt.Errorf("whois: query for whois server failed: %v", err)
+		}
+		server = getServer(result)
+		if server == "" {
+			return "", fmt.Errorf("whois: no whois server found")
 		}
 	} else {
 		server = strings.ToLower(servers[0])
-		if server == "whois.arin.net" {
-			domain = "n + " + domain
-		}
 	}
 
-	conn, e := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second*30)
-	if e != nil {
-		err = e
-		return
+	if server == "whois.arin.net" {
+		domain = "n + " + domain
+	}
+
+	conn, err := net.DialTimeout("tcp", net.JoinHostPort(server, DEFAULT_WHOIS_PORT), time.Second*30)
+	if err != nil {
+		return "", fmt.Errorf("whois: connect to whois server failed: %v", err)
 	}
 
 	defer conn.Close()
 	_ = conn.SetReadDeadline(time.Now().Add(time.Second * 30))
 	_, err = conn.Write([]byte(domain + "\r\n"))
 	if err != nil {
-		return
+		return "", fmt.Errorf("whois: send to whois server failed: %v", err)
 	}
 
 	buffer, err := ioutil.ReadAll(conn)
 	if err != nil {
-		return
+		return "", fmt.Errorf("whois: read from whois server failed: %v", err)
 	}
 
 	result = string(buffer)
@@ -135,8 +124,37 @@ func query(domain string, servers ...string) (result string, err error) {
 	return
 }
 
-// IsIpv4 returns string is an ipv4 ip
-func IsIpv4(ip string) bool {
-	i := net.ParseIP(ip)
-	return i.To4() != nil
+// getExtension returns extension of domain
+func getExtension(domain string) string {
+	ext := domain
+
+	domains := strings.Split(domain, ".")
+	if len(domains) > 1 {
+		ext = domains[len(domains)-1]
+	}
+
+	if strings.Contains(ext, "/") {
+		ext = strings.Split(ext, "/")[0]
+	}
+
+	return ext
+}
+
+// getServer returns server from whois data
+func getServer(data string) string {
+	tokens := []string{
+		"Registrar WHOIS Server: ",
+		"whois: ",
+	}
+
+	for _, token := range tokens {
+		start := strings.Index(data, token)
+		if start != -1 {
+			start += len(token)
+			end := strings.Index(data[start:], "\n")
+			return strings.TrimSpace(data[start : start+end])
+		}
+	}
+
+	return ""
 }

@@ -35,7 +35,7 @@ func TestWhoisFail(t *testing.T) {
 	tests := []string{
 		"",
 		"likexian.jp?e",
-		"8.8.8.888",
+		"1.1.1.1!",
 	}
 
 	for _, v := range tests {
@@ -63,6 +63,7 @@ func TestWhois(t *testing.T) {
 		"3.1.1.1",
 		"4.1.1.1",
 		"5.1.1.1",
+		"2001:dc7::1",
 	}
 
 	for _, v := range tests {
