@@ -36,7 +36,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.4.0"
+	return "1.5.0"
 }
 
 // Author returns package author
@@ -53,11 +53,10 @@ func License() string {
 func Whois(domain string, servers ...string) (result string, err error) {
 	domain = strings.Trim(strings.TrimSpace(domain), ".")
 	if domain == "" {
-		err = fmt.Errorf("Domain is empty")
-		return
+		return "", fmt.Errorf("whois: domain is empty")
 	}
 
-	if net.ParseIP(domain) == nil && !strings.Contains(domain, ".") {
+	if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
 		return query(domain, IANA_WHOIS_SERVER)
 	}
 
@@ -72,21 +71,19 @@ func Whois(domain string, servers ...string) (result string, err error) {
 	}
 
 	data, err := query(domain, server)
-	if err != nil {
-		return
+	if err == nil {
+		result += data
 	}
-
-	result += data
 
 	return
 }
 
-// query do the query
-func query(domain string, servers ...string) (result string, err error) {
+// query do the whois query
+func query(domain string, servers ...string) (string, error) {
 	var server string
 	if len(servers) == 0 || servers[0] == "" {
 		ext := getExtension(domain)
-		result, err = query(ext, IANA_WHOIS_SERVER)
+		result, err := query(ext, IANA_WHOIS_SERVER)
 		if err != nil {
 			return "", fmt.Errorf("whois: query for whois server failed: %v", err)
 		}
@@ -108,29 +105,30 @@ func query(domain string, servers ...string) (result string, err error) {
 	}
 
 	defer conn.Close()
-	_ = conn.SetReadDeadline(time.Now().Add(time.Second * 30))
+	_ = conn.SetWriteDeadline(time.Now().Add(time.Second * 30))
 	_, err = conn.Write([]byte(domain + "\r\n"))
 	if err != nil {
 		return "", fmt.Errorf("whois: send to whois server failed: %v", err)
 	}
 
+	_ = conn.SetReadDeadline(time.Now().Add(time.Second * 30))
 	buffer, err := ioutil.ReadAll(conn)
 	if err != nil {
 		return "", fmt.Errorf("whois: read from whois server failed: %v", err)
 	}
 
-	result = string(buffer)
-
-	return
+	return string(buffer), nil
 }
 
 // getExtension returns extension of domain
 func getExtension(domain string) string {
 	ext := domain
 
-	domains := strings.Split(domain, ".")
-	if len(domains) > 1 {
-		ext = domains[len(domains)-1]
+	if net.ParseIP(domain) == nil {
+		domains := strings.Split(domain, ".")
+		if len(domains) > 1 {
+			ext = domains[len(domains)-1]
+		}
 	}
 
 	if strings.Contains(ext, "/") {

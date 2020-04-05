@@ -50,7 +50,9 @@ func TestWhoisFail(t *testing.T) {
 func TestWhois(t *testing.T) {
 	tests := []string{
 		"com",
-		"likexian.com",
+		"xxx",
+		"cn",
+		"google.com",
 		"google.net",
 		"google.org",
 		"google.mobi",

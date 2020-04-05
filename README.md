@@ -14,8 +14,6 @@ You can directly using the binary distributions whois, follow [whois release too
 
 Or you can do development by using the golang module as below.
 
-*Works for most domain extensions and most ip most of the time.*
-
 ## Installation
 
     go get -u github.com/likexian/whois-go
@@ -35,16 +33,7 @@ Visit the docs on [GoDoc](https://godoc.org/github.com/likexian/whois-go)
 ### whois query for domain
 
 ```go
-result, err := whois.Whois("example.com")
-if err == nil {
-    fmt.Println(result)
-}
-```
-
-### whois query for ipv4
-
-```go
-result, err := whois.Whois("1.1.1.1")
+result, err := whois.Whois("likexian.com")
 if err == nil {
     fmt.Println(result)
 }
@@ -54,6 +43,15 @@ if err == nil {
 
 ```go
 result, err := whois.Whois("2001:dc7::1")
+if err == nil {
+    fmt.Println(result)
+}
+```
+
+### whois query for ipv4
+
+```go
+result, err := whois.Whois("1.1.1.1")
 if err == nil {
     fmt.Println(result)
 }
