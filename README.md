@@ -20,9 +20,11 @@ Or you can do development by using the golang module as below.
 
 ## Importing
 
-    import (
-        "github.com/likexian/whois-go"
-    )
+```go
+import (
+    "github.com/likexian/whois-go"
+)
+```
 
 ## Documentation
 
