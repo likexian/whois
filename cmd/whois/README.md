@@ -1,6 +1,6 @@
 # whois
 
-whois is a release tool for domain and ip whois info query.
+whois is a release tool for domain and ip whois information query.
 
 ## Download whois
 
@@ -8,38 +8,54 @@ Binary distributions available for Linux x86 and x86_64.
 
 ### linux x86_64
 
-    wget https://github.com/likexian/whois-go/releases/download/v1.5.0/whois.linux-amd64.tar.gz
+```shell
+wget https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-amd64.tar.gz
+```
 
 OR
 
-    curl https://github.com/likexian/whois-go/releases/download/v1.5.0/whois.linux-amd64.tar.gz -OL
+```shell
+curl https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-amd64.tar.gz -OL
+```
 
 ### linux x86
 
-    wget https://github.com/likexian/whois-go/releases/download/v1.5.0/whois.linux-386.tar.gz
+```shell
+wget https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-386.tar.gz
+```
 
 OR
 
-    curl https://github.com/likexian/whois-go/releases/download/v1.5.0/whois.linux-386.tar.gz -OL
+```shell
+curl https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-386.tar.gz -OL
+```
 
-## install whois
+## Install whois
 
-    tar zxf whois.linux-*.tar.gz
-    chmod +x whois
-    mv /usr/bin/whois /usr/bin/whois.old
-    mv whois /usr/bin/whois
+```shell
+tar zxf whois.linux-*.tar.gz
+chmod +x whois
+mv /usr/bin/whois /usr/bin/whois.old
+mv whois /usr/bin/whois
+```
 
-## test whois
+## Test whois
 
-    whois likexian.com
+```shell
+whois likexian.com
+```
 
 OR
 
-    whois 2001:dc7::1
+```shell
+whois 2001:dc7::1
+```
 
 OR
 
-    whois 1.1.1.1
+```shell
+whois 1.1.1.1
+```
 
 ## LICENSE
 

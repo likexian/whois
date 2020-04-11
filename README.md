@@ -6,17 +6,21 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/likexian/whois-go)](https://goreportcard.com/report/github.com/likexian/whois-go)
 [![Code Cover](https://codecov.io/gh/likexian/whois-go/graph/badge.svg)](https://codecov.io/gh/likexian/whois-go)
 
-whois-go is a simple Go module for domain and ip whois info query.
+whois-go is a simple Go module for domain and ip whois information query.
 
 ## Overview
 
+All of domain, ipv4 and ipv6 are support.
+
 You can directly using the binary distributions whois, follow [whois release tool](cmd/whois).
 
-Or you can do development by using the golang module as below.
+Or you can do development by using this golang module as below.
 
 ## Installation
 
-    go get -u github.com/likexian/whois-go
+```shell
+go get -u github.com/likexian/whois-go
+```
 
 ## Importing
 
@@ -59,7 +63,7 @@ if err == nil {
 }
 ```
 
-## Whois info parser in Go
+## Whois information parser in Go
 
 Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
 
