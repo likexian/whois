@@ -36,7 +36,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.5.0"
+	return "1.6.0"
 }
 
 // Author returns package author
@@ -60,12 +60,27 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		return query(domain, IANA_WHOIS_SERVER)
 	}
 
-	result, err = query(domain, servers...)
+	var server string
+	if len(servers) == 0 || servers[0] == "" {
+		ext := getExtension(domain)
+		result, err := query(ext, IANA_WHOIS_SERVER)
+		if err != nil {
+			return "", fmt.Errorf("whois: query for whois server failed: %v", err)
+		}
+		server = getServer(result)
+		if server == "" {
+			return "", fmt.Errorf("whois: no whois server found for domain: %s", domain)
+		}
+	} else {
+		server = strings.ToLower(servers[0])
+	}
+
+	result, err = query(domain, server)
 	if err != nil {
 		return
 	}
 
-	server := getServer(result)
+	server = getServer(result)
 	if server == "" {
 		return
 	}
@@ -78,23 +93,8 @@ func Whois(domain string, servers ...string) (result string, err error) {
 	return
 }
 
-// query do the whois query
-func query(domain string, servers ...string) (string, error) {
-	var server string
-	if len(servers) == 0 || servers[0] == "" {
-		ext := getExtension(domain)
-		result, err := query(ext, IANA_WHOIS_SERVER)
-		if err != nil {
-			return "", fmt.Errorf("whois: query for whois server failed: %v", err)
-		}
-		server = getServer(result)
-		if server == "" {
-			return "", fmt.Errorf("whois: no whois server found")
-		}
-	} else {
-		server = strings.ToLower(servers[0])
-	}
-
+// query send query to server
+func query(domain, server string) (string, error) {
 	if server == "whois.arin.net" {
 		domain = "n + " + domain
 	}
@@ -126,9 +126,7 @@ func getExtension(domain string) string {
 
 	if net.ParseIP(domain) == nil {
 		domains := strings.Split(domain, ".")
-		if len(domains) > 1 {
-			ext = domains[len(domains)-1]
-		}
+		ext = domains[len(domains)-1]
 	}
 
 	if strings.Contains(ext, "/") {
