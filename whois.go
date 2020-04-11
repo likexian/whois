@@ -80,12 +80,12 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		return
 	}
 
-	server = getServer(result)
-	if server == "" {
+	refServer := getServer(result)
+	if refServer == "" || refServer == server {
 		return
 	}
 
-	data, err := query(domain, server)
+	data, err := query(domain, refServer)
 	if err == nil {
 		result += data
 	}
