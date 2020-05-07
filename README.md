@@ -1,4 +1,4 @@
-# whois.go
+# Whois
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![GoDoc](https://godoc.org/github.com/likexian/whois-go?status.svg)](https://godoc.org/github.com/likexian/whois-go)
@@ -6,7 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/likexian/whois-go)](https://goreportcard.com/report/github.com/likexian/whois-go)
 [![Code Cover](https://codecov.io/gh/likexian/whois-go/graph/badge.svg)](https://codecov.io/gh/likexian/whois-go)
 
-whois-go is a simple Go module for domain and ip whois information query.
+Whois is a simple Go module for domain and ip whois information query.
 
 ## Overview
 
@@ -63,20 +63,18 @@ if err == nil {
 }
 ```
 
-## Whois information parser in Go
+## Whois information parsing
 
 Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
 
-## LICENSE
+## License
 
-Copyright 2014-2020 Li Kexian
+Copyright 2014-2020 [Li Kexian](https://www.likexian.com/)
 
 Licensed under the Apache License 2.0
 
-## About
+## Donation
 
-- [Li Kexian](https://www.likexian.com/)
+If this project is helpful, please share it with friends.
 
-## DONATE
-
-- [Help me make perfect](https://www.likexian.com/donate/)
+If you want to thank me, you can [give me a cup of coffee](https://www.likexian.com/donate/).
