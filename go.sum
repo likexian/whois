@@ -1,2 +1,4 @@
-github.com/likexian/gokit v0.23.1 h1:1P6J3d4r2D+V1C4xbdxm/pWP+L502CoHe5ttZsniHWM=
-github.com/likexian/gokit v0.23.1/go.mod h1:/asXq96N3H5gVxyfyNuQO7HFoSorzcU+ZMEImyBGZB8=
+github.com/likexian/gokit v0.23.3 h1:1klD04/osK9b16Q9sNEChOOim6oDa14fEuv1JL8yzU4=
+github.com/likexian/gokit v0.23.3/go.mod h1:/asXq96N3H5gVxyfyNuQO7HFoSorzcU+ZMEImyBGZB8=
+github.com/likexian/whois-parser-go v1.14.3 h1:3spzZgm4TScrJaq0lvtTbCm5XhCabTO7KBgHyXyXQFk=
+github.com/likexian/whois-parser-go v1.14.3/go.mod h1:nhh8bZ0mHgLu3p0mUV2kh9DgUJ6BXHb5elPgt7CL0VY=

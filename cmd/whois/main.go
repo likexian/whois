@@ -24,11 +24,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/likexian/gokit/xjson"
 	"github.com/likexian/whois-go"
+	whoisparser "github.com/likexian/whois-parser-go"
 )
 
 func main() {
 	server := flag.String("h", "", "specify the whois server")
+	fmtJson := flag.Bool("j", false, "output format as json")
 	version := flag.Bool("v", false, "show the whois version")
 	flag.Parse()
 
@@ -39,16 +42,31 @@ func main() {
 	}
 
 	if len(flag.Args()) == 0 {
-		fmt.Printf("usage:\n\t%s [-h server] domain\n", os.Args[0])
+		fmt.Printf("usage:\n\t%s [-j] [-h server] domain\n", os.Args[0])
 		os.Exit(1)
 	}
 
-	result, err := whois.Whois(flag.Args()[0], *server)
+	text, err := whois.Whois(flag.Args()[0], *server)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 
-	fmt.Println(result)
+	if *fmtJson {
+		info, err := whoisparser.Parse(text)
+		if err != nil {
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
+		data, err := xjson.PrettyDumps(info)
+		if err != nil {
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
+		fmt.Println(data)
+		os.Exit(0)
+	}
+
+	fmt.Println(text)
 	os.Exit(0)
 }
