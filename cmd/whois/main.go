@@ -42,7 +42,16 @@ func main() {
 	}
 
 	if len(flag.Args()) == 0 {
-		fmt.Printf("usage:\n\t%s [-j] [-h server] domain\n", os.Args[0])
+		fmt.Printf("Usage:\n\t%s [-j] [-h server] domain\n", os.Args[0])
+		fmt.Printf(`
+domain:
+  a domain or ipv4 or ipv6 for query
+
+options:
+  -h string specify the whois server
+  -j        output format as json
+  -v        show the whois version
+`)
 		os.Exit(1)
 	}
 
