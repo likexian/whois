@@ -1,8 +1,10 @@
 #!/bin/bash
 
-for i in 386 amd64; do
-    echo "Building whois.linux-$i..."
-    GOOS=linux GOARCH=$i go build -v -trimpath -ldflags '-w -s' -o whois
-    tar zcf whois.linux-$i.tar.gz whois
-    rm -rf whois
+for os in linux windows; do
+    for arch in 386 amd64; do
+        echo "Building whois-$os-$arch..."
+        GOOS=$os GOARCH=$arch go build -v -trimpath -ldflags '-w -s' -o whois
+        zip whois-$os-$arch.zip whois
+        rm -rf whois
+    done
 done
