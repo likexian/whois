@@ -4,57 +4,48 @@ Whois is a release tool for domain and ip whois information query.
 
 ## Download whois
 
-Binary distributions available for Linux x86 and x86_64.
+The latest version of whois can be downloaded using the links below. Please download the proper package for your operating system and architecture.
 
-### linux x86_64
+Whois is released as a single binary file. Install whois by unzipping it and moving it to a directory included in your system's PATH.
 
-```shell
-wget https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-amd64.tar.gz
-```
+### macOS
 
-OR
+- [64-bit](https://github.com/likexian/whois-go/releases/download/v1.7.1/whois-darwin-amd64.zip)
 
-```shell
-curl https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-amd64.tar.gz -OL
-```
+### Linux
 
-### linux x86
+- [32-bit](https://github.com/likexian/whois-go/releases/download/v1.7.1/whois-linux-386.zip)
+- [64-bit](https://github.com/likexian/whois-go/releases/download/v1.7.1/whois-linux-amd64.zip)
 
-```shell
-wget https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-386.tar.gz
-```
+### Windows
 
-OR
+- [32-bit](https://github.com/likexian/whois-go/releases/download/v1.7.1/whois-windows-386.zip)
+- [64-bit](https://github.com/likexian/whois-go/releases/download/v1.7.1/whois-windows-amd64.zip)
 
-```shell
-curl https://github.com/likexian/whois-go/releases/download/v1.6.0/whois.linux-386.tar.gz -OL
-```
+## Usage
 
-## Install whois
-
-```shell
-tar zxf whois.linux-*.tar.gz
-chmod +x whois
-mv /usr/bin/whois /usr/bin/whois.old
-mv whois /usr/bin/whois
-```
-
-## Test whois
+### whois query for domain
 
 ```shell
 whois likexian.com
 ```
 
-OR
+### whois query for ipv6
 
 ```shell
 whois 2001:dc7::1
 ```
 
-OR
+### whois query for ipv4
 
 ```shell
 whois 1.1.1.1
+```
+
+### whois query output as json
+
+```shell
+whois -j likexian.com
 ```
 
 ## License
