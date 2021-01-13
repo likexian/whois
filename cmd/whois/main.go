@@ -55,7 +55,12 @@ options:
 		os.Exit(1)
 	}
 
-	text, err := whois.Whois(flag.Args()[0], *server)
+	client, err := whois.NewClient(nil, nil)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	text, err := client.Whois(flag.Args()[0], *server)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)

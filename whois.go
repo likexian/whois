@@ -21,6 +21,7 @@ package whois
 
 import (
 	"fmt"
+	"golang.org/x/net/proxy"
 	"io/ioutil"
 	"net"
 	"strings"
@@ -28,10 +29,12 @@ import (
 )
 
 const (
-	// IANA_WHOIS_SERVER is iana whois server
-	IANA_WHOIS_SERVER = "whois.iana.org"
-	// DEFAULT_WHOIS_PORT is default whois port
-	DEFAULT_WHOIS_PORT = "43"
+	// ianaWhoisServer is iana whois server
+	ianaWhoisServer = "whois.iana.org"
+	// defaultWhoisPort is default whois port
+	defaultWhoisPort = "43"
+	// defaultTimeout is default timeout for connection
+	defaultTimeout = 30 * time.Second
 )
 
 // Version returns package version
@@ -49,21 +52,44 @@ func License() string {
 	return "Licensed under the Apache License 2.0"
 }
 
+type Client struct {
+	dialer  proxy.Dialer
+	timeout time.Duration
+}
+
+func NewClient(dialer proxy.Dialer, timeout *time.Duration) (*Client, error) {
+	client := Client{
+		dialer:  dialer,
+	}
+
+	if timeout == nil {
+		client.timeout = defaultTimeout
+	} else {
+		client.timeout = *timeout
+	}
+
+	if dialer == nil {
+		client.dialer = &net.Dialer{Timeout: client.timeout}
+	}
+
+	return &client, nil
+}
+
 // Whois do the whois query and returns whois info
-func Whois(domain string, servers ...string) (result string, err error) {
+func (c *Client) Whois(domain string, servers ...string) (result string, err error) {
 	domain = strings.Trim(strings.TrimSpace(domain), ".")
 	if domain == "" {
 		return "", fmt.Errorf("whois: domain is empty")
 	}
 
 	if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
-		return query(domain, IANA_WHOIS_SERVER)
+		return c.query(domain, ianaWhoisServer)
 	}
 
 	var server string
 	if len(servers) == 0 || servers[0] == "" {
 		ext := getExtension(domain)
-		result, err := query(ext, IANA_WHOIS_SERVER)
+		result, err := c.query(ext, ianaWhoisServer)
 		if err != nil {
 			return "", fmt.Errorf("whois: query for whois server failed: %v", err)
 		}
@@ -75,7 +101,7 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		server = strings.ToLower(servers[0])
 	}
 
-	result, err = query(domain, server)
+	result, err = c.query(domain, server)
 	if err != nil {
 		return
 	}
@@ -85,7 +111,7 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		return
 	}
 
-	data, err := query(domain, refServer)
+	data, err := c.query(domain, refServer)
 	if err == nil {
 		result += data
 	}
@@ -94,24 +120,24 @@ func Whois(domain string, servers ...string) (result string, err error) {
 }
 
 // query send query to server
-func query(domain, server string) (string, error) {
+func (c *Client) query(domain, server string) (string, error) {
 	if server == "whois.arin.net" {
 		domain = "n + " + domain
 	}
 
-	conn, err := net.DialTimeout("tcp", net.JoinHostPort(server, DEFAULT_WHOIS_PORT), time.Second*30)
+	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, defaultWhoisPort))
 	if err != nil {
 		return "", fmt.Errorf("whois: connect to whois server failed: %v", err)
 	}
 
 	defer conn.Close()
-	_ = conn.SetWriteDeadline(time.Now().Add(time.Second * 30))
+	_ = conn.SetWriteDeadline(time.Now().Add(c.timeout))
 	_, err = conn.Write([]byte(domain + "\r\n"))
 	if err != nil {
 		return "", fmt.Errorf("whois: send to whois server failed: %v", err)
 	}
 
-	_ = conn.SetReadDeadline(time.Now().Add(time.Second * 30))
+	_ = conn.SetReadDeadline(time.Now().Add(c.timeout))
 	buffer, err := ioutil.ReadAll(conn)
 	if err != nil {
 		return "", fmt.Errorf("whois: read from whois server failed: %v", err)
