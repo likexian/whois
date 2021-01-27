@@ -56,8 +56,10 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		return "", fmt.Errorf("whois: domain is empty")
 	}
 
-	if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
-		return query(domain, IANA_WHOIS_SERVER)
+	if !strings.Contains(domain, "as") && !strings.Contains(domain, "AS") {
+		if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
+			return query(domain, IANA_WHOIS_SERVER)
+		}
 	}
 
 	var server string
