@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -58,7 +59,11 @@ func Whois(domain string, servers ...string) (result string, err error) {
 
 	if !strings.Contains(domain, "as") && !strings.Contains(domain, "AS") {
 		if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
-			return query(domain, IANA_WHOIS_SERVER)
+			checkASN := strings.Replace(strings.ToUpper(domain), "AS", "", -1)
+			_, err := strconv.ParseFloat(checkASN, 64)
+			if err != nil {
+				return query(domain, IANA_WHOIS_SERVER)
+			}
 		}
 	}
 
