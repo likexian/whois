@@ -42,6 +42,12 @@ whois 2001:dc7::1
 whois 1.1.1.1
 ```
 
+### whois query for ASN
+
+```shell
+whois as60614
+```
+
 ### whois query output as json
 
 ```shell
