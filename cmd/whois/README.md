@@ -2,6 +2,10 @@
 
 Whois is a release tool for domain and ip whois information query.
 
+## Overview
+
+All of domain, IP include IPv4 and IPv6, ASN are supported.
+
 ## Download whois
 
 The latest version of whois can be downloaded using the links below. Please download the proper package for your operating system and architecture.
@@ -30,13 +34,13 @@ Whois is released as a single binary file. Install whois by unzipping it and mov
 whois likexian.com
 ```
 
-### whois query for ipv6
+### whois query for IPv6
 
 ```shell
 whois 2001:dc7::1
 ```
 
-### whois query for ipv4
+### whois query for IPv4
 
 ```shell
 whois 1.1.1.1
@@ -45,7 +49,8 @@ whois 1.1.1.1
 ### whois query for ASN
 
 ```shell
-whois as60614
+# or whois as60614
+whois 60614
 ```
 
 ### whois query output as json

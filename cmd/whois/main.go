@@ -45,7 +45,7 @@ func main() {
 		fmt.Printf("Usage:\n\t%s [-j] [-h server] domain\n", os.Args[0])
 		fmt.Printf(`
 domain:
-  a domain or ipv4 or ipv6 for query
+  domain or IPv4 or IPv6 or ASN for query
 
 options:
   -h string specify the whois server

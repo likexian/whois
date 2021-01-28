@@ -10,7 +10,7 @@ Whois is a simple Go module for domain and ip whois information query.
 
 ## Overview
 
-All of domain, ipv4 and ipv6 are support.
+All of domain, IP include IPv4 and IPv6, ASN are supported.
 
 You can directly using the binary distributions whois, follow [whois release tool](cmd/whois).
 
@@ -45,7 +45,7 @@ if err == nil {
 }
 ```
 
-### whois query for ipv6
+### whois query for IPv6
 
 ```go
 result, err := whois.Whois("2001:dc7::1")
@@ -54,7 +54,7 @@ if err == nil {
 }
 ```
 
-### whois query for ipv4
+### whois query for IPv4
 
 ```go
 result, err := whois.Whois("1.1.1.1")
@@ -66,7 +66,8 @@ if err == nil {
 ### whois query for ASN
 
 ```go
-result, err := whois.Whois("AS60614")
+// or whois.Whois("AS60614")
+result, err := whois.Whois("60614")
 if err == nil {
     fmt.Println(result)
 }

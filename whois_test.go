@@ -66,6 +66,11 @@ func TestWhois(t *testing.T) {
 		"4.1.1.1",
 		"5.1.1.1",
 		"2001:dc7::1",
+		"as2",
+		"as1878",
+		"as4610",
+		"as27648",
+		"as36865",
 	}
 
 	for _, v := range tests {
@@ -76,4 +81,28 @@ func TestWhois(t *testing.T) {
 
 	_, err := Whois("likexian.com", "com.whois-servers.net")
 	assert.Nil(t, err)
+}
+
+func TestIsASN(t *testing.T) {
+	tests := []struct {
+		in  string
+		out bool
+	}{
+		{"", false},
+		{"a", false},
+		{"ab", false},
+		{"as", false},
+		{"ab1", false},
+		{"as1a", false},
+		{"as1", true},
+		{"As1", true},
+		{"AS1", true},
+		{"AS123", true},
+		{"1", true},
+		{"123", true},
+	}
+
+	for _, v := range tests {
+		assert.Equal(t, IsASN(v.in), v.out)
+	}
 }

@@ -37,7 +37,7 @@ const (
 
 // Version returns package version
 func Version() string {
-	return "1.7.2"
+	return "1.8.0"
 }
 
 // Author returns package author
@@ -57,14 +57,15 @@ func Whois(domain string, servers ...string) (result string, err error) {
 		return "", fmt.Errorf("whois: domain is empty")
 	}
 
-	if !strings.Contains(domain, "as") && !strings.Contains(domain, "AS") {
-		if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
-			checkASN := strings.Replace(strings.ToUpper(domain), "AS", "", -1)
-			_, err := strconv.ParseFloat(checkASN, 64)
-			if err != nil {
-				return query(domain, IANA_WHOIS_SERVER)
-			}
+	isASN := IsASN(domain)
+	if isASN {
+		if !strings.HasPrefix(strings.ToUpper(domain), "AS") {
+			domain = "AS" + domain
 		}
+	}
+
+	if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") && !isASN {
+		return query(domain, IANA_WHOIS_SERVER)
 	}
 
 	var server string
@@ -103,7 +104,11 @@ func Whois(domain string, servers ...string) (result string, err error) {
 // query send query to server
 func query(domain, server string) (string, error) {
 	if server == "whois.arin.net" {
-		domain = "n + " + domain
+		if IsASN(domain) {
+			domain = "a + " + domain
+		} else {
+			domain = "n + " + domain
+		}
 	}
 
 	conn, err := net.DialTimeout("tcp", net.JoinHostPort(server, DEFAULT_WHOIS_PORT), time.Second*30)
@@ -160,4 +165,17 @@ func getServer(data string) string {
 	}
 
 	return ""
+}
+
+// IsASN returns if s is ASN
+func IsASN(s string) bool {
+	s = strings.ToUpper(s)
+
+	if strings.HasPrefix(s, "AS") {
+		s = strings.TrimPrefix(s, "AS")
+	}
+
+	_, err := strconv.Atoi(s)
+
+	return err == nil
 }
