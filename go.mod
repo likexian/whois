@@ -1,8 +1,8 @@
-module github.com/likexian/whois-go
+module github.com/likexian/whois
 
 go 1.15
 
 require (
-	github.com/likexian/gokit v0.24.2
-	github.com/likexian/whois-parser-go v1.15.2
+	github.com/likexian/gokit v0.24.7
+	github.com/likexian/whois-parser v1.20.2
 )

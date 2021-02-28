@@ -14,17 +14,17 @@ Whois is released as a single binary file. Install whois by unzipping it and mov
 
 ### macOS
 
-- [64-bit](https://github.com/likexian/whois-go/releases/download/v1.7.2/whois-darwin-amd64.zip)
+- [64-bit](https://github.com/likexian/whois/releases/download/v1.7.2/whois-darwin-amd64.zip)
 
 ### Linux
 
-- [64-bit](https://github.com/likexian/whois-go/releases/download/v1.7.2/whois-linux-amd64.zip)
-- [32-bit](https://github.com/likexian/whois-go/releases/download/v1.7.2/whois-linux-386.zip)
+- [64-bit](https://github.com/likexian/whois/releases/download/v1.7.2/whois-linux-amd64.zip)
+- [32-bit](https://github.com/likexian/whois/releases/download/v1.7.2/whois-linux-386.zip)
 
 ### Windows
 
-- [64-bit](https://github.com/likexian/whois-go/releases/download/v1.7.2/whois-windows-amd64.zip)
-- [32-bit](https://github.com/likexian/whois-go/releases/download/v1.7.2/whois-windows-386.zip)
+- [64-bit](https://github.com/likexian/whois/releases/download/v1.7.2/whois-windows-amd64.zip)
+- [32-bit](https://github.com/likexian/whois/releases/download/v1.7.2/whois-windows-386.zip)
 
 ## Usage
 

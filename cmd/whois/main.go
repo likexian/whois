@@ -25,8 +25,8 @@ import (
 	"os"
 
 	"github.com/likexian/gokit/xjson"
-	"github.com/likexian/whois-go"
-	whoisparser "github.com/likexian/whois-parser-go"
+	"github.com/likexian/whois"
+	whoisparser "github.com/likexian/whois-parser"
 )
 
 func main() {
