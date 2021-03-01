@@ -63,13 +63,22 @@ if err == nil {
 }
 ```
 
+### whois query for ASN
+
+```go
+result, err := whois.Whois("AS60614")
+if err == nil {
+    fmt.Println(result)
+}
+```
+
 ## Whois information parsing
 
 Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
 
 ## License
 
-Copyright 2014-2020 [Li Kexian](https://www.likexian.com/)
+Copyright 2014-2021 [Li Kexian](https://www.likexian.com/)
 
 Licensed under the Apache License 2.0
 

@@ -1,7 +1,8 @@
-github.com/likexian/gokit v0.23.3 h1:1klD04/osK9b16Q9sNEChOOim6oDa14fEuv1JL8yzU4=
 github.com/likexian/gokit v0.23.3/go.mod h1:/asXq96N3H5gVxyfyNuQO7HFoSorzcU+ZMEImyBGZB8=
-github.com/likexian/whois-parser-go v1.15.1 h1:IqGTdKYHxi+c7zNR6GR4s1HUKD+C/pFDT6yeyEfaAUQ=
-github.com/likexian/whois-parser-go v1.15.1/go.mod h1:zbLK4/FJW/zO2K5wZmHe+Fu6q5JygxJg+cQkYPA3nNI=
+github.com/likexian/gokit v0.24.2 h1:cVdgUDpI23QGh4YwF75LqFRC1GrBOalyd8PPLst87Uo=
+github.com/likexian/gokit v0.24.2/go.mod h1:/lFoAwJLyi1/4nftqgLUG0zzxilnidO1rUSAahSd8ME=
+github.com/likexian/whois-parser-go v1.15.2 h1:132qACv2kBoWSHMWs6M09pnZd47kn/Pm4ViRod1xtI8=
+github.com/likexian/whois-parser-go v1.15.2/go.mod h1:zbLK4/FJW/zO2K5wZmHe+Fu6q5JygxJg+cQkYPA3nNI=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3/go.mod h1:t9HGtf8HONx5eT2rtn7q6eTqICYqUVnKs3thJo3Qplg=
@@ -16,6 +17,3 @@ golang.org/x/sys v0.0.0-20201119102817-f84b799fce68/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/text v0.3.0 h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
-golang.org/x/text v0.3.3 h1:cokOdA+Jmi5PJGXLlLllQSgYigAEfHXJAERHVMaCc2k=
-golang.org/x/text v0.3.3/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
-golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=

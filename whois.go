@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 Li Kexian
+ * Copyright 2014-2021 Li Kexian
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import (
 	"golang.org/x/net/proxy"
 	"io/ioutil"
 	"net"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -82,8 +83,14 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 		return "", fmt.Errorf("whois: domain is empty")
 	}
 
-	if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
-		return c.query(domain, ianaWhoisServer)
+	if !strings.Contains(domain, "as") && !strings.Contains(domain, "AS") {
+		if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") {
+			checkASN := strings.Replace(strings.ToUpper(domain), "AS", "", -1)
+			_, err := strconv.ParseFloat(checkASN, 64)
+			if err != nil {
+				return c.query(domain, ianaWhoisServer)
+			}
+		}
 	}
 
 	var server string
