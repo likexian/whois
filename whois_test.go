@@ -21,6 +21,7 @@ package whois
 
 import (
 	"testing"
+	"time"
 
 	"github.com/likexian/gokit/assert"
 )
@@ -66,6 +67,7 @@ func TestWhois(t *testing.T) {
 		"4.1.1.1",
 		"5.1.1.1",
 		"2001:dc7::1",
+		"1",
 		"as2",
 		"as1878",
 		"as4610",
@@ -80,6 +82,19 @@ func TestWhois(t *testing.T) {
 	}
 
 	_, err := Whois("likexian.com", "com.whois-servers.net")
+	assert.Nil(t, err)
+}
+
+func TestNew(t *testing.T) {
+	c := NewClient()
+	var err error
+
+	c.SetTimeout(10 * time.Microsecond)
+	_, err = c.Query("likexian.com")
+	assert.NotNil(t, err)
+
+	c.SetTimeout(10 * time.Second)
+	_, err = c.Query("likexian.com")
 	assert.Nil(t, err)
 }
 
