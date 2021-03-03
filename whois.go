@@ -26,6 +26,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/net/proxy"
 )
 
 const (
@@ -42,12 +44,13 @@ var DefaultClient = NewClient()
 
 // Client is whois client
 type Client struct {
+	dialer  proxy.Dialer
 	timeout time.Duration
 }
 
 // Version returns package version
 func Version() string {
-	return "1.10.0"
+	return "1.11.0"
 }
 
 // Author returns package author
@@ -62,14 +65,22 @@ func License() string {
 
 // Whois do the whois query and returns whois information
 func Whois(domain string, servers ...string) (result string, err error) {
-	return DefaultClient.Query(domain, servers...)
+	return DefaultClient.Whois(domain, servers...)
 }
 
 // New returns new whois client
 func NewClient() *Client {
 	return &Client{
+		dialer: &net.Dialer{
+			Timeout: defaultTimeout,
+		},
 		timeout: defaultTimeout,
 	}
+}
+
+// SetDialer set query net dialer
+func (c *Client) SetDialer(dialer proxy.Dialer) {
+	c.dialer = dialer
 }
 
 // SetTimeout set query timeout
@@ -77,8 +88,8 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 	c.timeout = timeout
 }
 
-// Query do the whois query and returns whois information
-func (c *Client) Query(domain string, servers ...string) (result string, err error) {
+// Whois do the whois query and returns whois information
+func (c *Client) Whois(domain string, servers ...string) (result string, err error) {
 	domain = strings.Trim(strings.TrimSpace(domain), ".")
 	if domain == "" {
 		return "", fmt.Errorf("whois: domain is empty")
@@ -138,7 +149,7 @@ func (c *Client) rawQuery(domain, server string) (string, error) {
 		}
 	}
 
-	conn, err := net.DialTimeout("tcp", net.JoinHostPort(server, defaultWhoisPort), c.timeout)
+	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, defaultWhoisPort))
 	if err != nil {
 		return "", fmt.Errorf("whois: connect to whois server failed: %v", err)
 	}

@@ -24,6 +24,7 @@ import (
 	"time"
 
 	"github.com/likexian/gokit/assert"
+	"golang.org/x/net/proxy"
 )
 
 func TestVersion(t *testing.T) {
@@ -85,16 +86,20 @@ func TestWhois(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-func TestNew(t *testing.T) {
+func TestNewClient(t *testing.T) {
 	c := NewClient()
 	var err error
 
 	c.SetTimeout(10 * time.Microsecond)
-	_, err = c.Query("likexian.com")
+	_, err = c.Whois("likexian.com")
 	assert.NotNil(t, err)
 
 	c.SetTimeout(10 * time.Second)
-	_, err = c.Query("likexian.com")
+	_, err = c.Whois("likexian.com")
+	assert.Nil(t, err)
+
+	c.SetDialer(proxy.FromEnvironment())
+	_, err = c.Whois("likexian.com")
 	assert.Nil(t, err)
 }
 
