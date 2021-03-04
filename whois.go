@@ -37,6 +37,8 @@ const (
 	defaultWhoisPort = "43"
 	// defaultTimeout is query default timeout
 	defaultTimeout = 30 * time.Second
+	// asnPrefix is asn prefix string
+	asnPrefix = "AS"
 )
 
 // DefaultClient is default whois client
@@ -50,7 +52,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.11.0"
+	return "1.11.1"
 }
 
 // Author returns package author
@@ -97,8 +99,8 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 
 	isASN := IsASN(domain)
 	if isASN {
-		if !strings.HasPrefix(strings.ToUpper(domain), "AS") {
-			domain = "AS" + domain
+		if !strings.HasPrefix(strings.ToUpper(domain), asnPrefix) {
+			domain = asnPrefix + domain
 		}
 	}
 
@@ -209,10 +211,7 @@ func getServer(data string) string {
 func IsASN(s string) bool {
 	s = strings.ToUpper(s)
 
-	if strings.HasPrefix(s, "AS") {
-		s = strings.TrimPrefix(s, "AS")
-	}
-
+	s = strings.TrimPrefix(s, asnPrefix)
 	_, err := strconv.Atoi(s)
 
 	return err == nil
