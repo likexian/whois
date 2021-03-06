@@ -53,7 +53,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.11.2"
+	return "1.11.3"
 }
 
 // Author returns package author
@@ -93,6 +93,15 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 
 // Whois do the whois query and returns whois information
 func (c *Client) Whois(domain string, servers ...string) (result string, err error) {
+	start := time.Now()
+	defer func() {
+		result = fmt.Sprintf("%s\n\n;; Query time: %d msec\n;; WHEN: %s\n",
+			strings.TrimRight(result, "\n"),
+			time.Since(start).Milliseconds(),
+			start.Format("Mon Jan 02 15:04:05 MST 2006"),
+		)
+	}()
+
 	domain = strings.Trim(strings.TrimSpace(domain), ".")
 	if domain == "" {
 		return "", fmt.Errorf("whois: domain is empty")
@@ -144,6 +153,9 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 
 // rawQuery do raw query to the server
 func (c *Client) rawQuery(domain, server string) (string, error) {
+	c.elapsed = 0
+	start := time.Now()
+
 	if server == "whois.arin.net" {
 		if IsASN(domain) {
 			domain = "a + " + domain
@@ -151,9 +163,6 @@ func (c *Client) rawQuery(domain, server string) (string, error) {
 			domain = "n + " + domain
 		}
 	}
-
-	c.elapsed = 0
-	start := time.Now()
 
 	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, defaultWhoisPort))
 	if err != nil {
