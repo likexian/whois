@@ -48,11 +48,12 @@ var DefaultClient = NewClient()
 type Client struct {
 	dialer  proxy.Dialer
 	timeout time.Duration
+	elapsed time.Duration
 }
 
 // Version returns package version
 func Version() string {
-	return "1.11.1"
+	return "1.11.2"
 }
 
 // Author returns package author
@@ -151,23 +152,32 @@ func (c *Client) rawQuery(domain, server string) (string, error) {
 		}
 	}
 
+	c.elapsed = 0
+	start := time.Now()
+
 	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, defaultWhoisPort))
 	if err != nil {
 		return "", fmt.Errorf("whois: connect to whois server failed: %v", err)
 	}
 
 	defer conn.Close()
-	_ = conn.SetWriteDeadline(time.Now().Add(c.timeout))
+	c.elapsed = time.Since(start)
+
+	_ = conn.SetWriteDeadline(time.Now().Add(c.timeout - c.elapsed))
 	_, err = conn.Write([]byte(domain + "\r\n"))
 	if err != nil {
 		return "", fmt.Errorf("whois: send to whois server failed: %v", err)
 	}
 
-	_ = conn.SetReadDeadline(time.Now().Add(c.timeout))
+	c.elapsed = time.Since(start)
+
+	_ = conn.SetReadDeadline(time.Now().Add(c.timeout - c.elapsed))
 	buffer, err := ioutil.ReadAll(conn)
 	if err != nil {
 		return "", fmt.Errorf("whois: read from whois server failed: %v", err)
 	}
+
+	c.elapsed = time.Since(start)
 
 	return string(buffer), nil
 }
