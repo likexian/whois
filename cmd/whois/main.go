@@ -20,17 +20,23 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/likexian/gokit/xjson"
+	"github.com/likexian/gokit/xversion"
 	"github.com/likexian/whois"
 	whoisparser "github.com/likexian/whois-parser"
 	"golang.org/x/net/proxy"
 )
 
 func main() {
+	updateMessage := make(chan string)
+	go checkUpdate(updateMessage, whois.Version())
+
 	server := flag.String("h", "", "specify the whois server")
 	fmtJson := flag.Bool("j", false, "output format as json")
 	version := flag.Bool("v", false, "show the whois version")
@@ -81,5 +87,40 @@ options:
 	}
 
 	fmt.Println(text)
+
+	message := <-updateMessage
+	if message != "" {
+		fmt.Println(message)
+	}
+
 	os.Exit(0)
+}
+
+// checkUpdate checks version update
+func checkUpdate(updateMessage chan string, version string) {
+	checkPoint := "https://release.likexian.com/whois/update"
+	cacheFile := fmt.Sprintf("%s/whois.update.cache", os.TempDir())
+
+	req := &xversion.CheckUpdateRequest{
+		Product:       "whois",
+		Current:       version,
+		CacheFile:     cacheFile,
+		CacheDuration: 24 * time.Hour,
+		CheckPoint:    checkPoint,
+	}
+
+	ctx := context.Background()
+	rsp, err := req.Run(ctx)
+	if err == nil && rsp.Outdated {
+		emergency := "NOTICE"
+		if rsp.Emergency {
+			emergency = "WARNING"
+		}
+		message := fmt.Sprintf(";; %s: Your version of whois is outdate, the latest is v%s.\n",
+			emergency, rsp.Latest)
+		message += fmt.Sprintf(";; You can update by downloading from %s", rsp.ProductUrl)
+		updateMessage <- message
+	}
+
+	updateMessage <- ""
 }
