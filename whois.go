@@ -164,6 +164,10 @@ func (c *Client) rawQuery(domain, server string) (string, error) {
 		}
 	}
 
+	if server == "whois.godaddy" {
+		server = "whois.godaddy.com"
+	}
+
 	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, defaultWhoisPort))
 	if err != nil {
 		return "", fmt.Errorf("whois: connect to whois server failed: %v", err)
