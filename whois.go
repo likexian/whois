@@ -104,7 +104,7 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 
 	domain = strings.Trim(strings.TrimSpace(domain), ".")
 	if domain == "" {
-		return "", fmt.Errorf("whois: domain is empty")
+		return "", fmt.Errorf("whois: %w", ErrDomainEmpty)
 	}
 
 	isASN := IsASN(domain)
@@ -127,7 +127,7 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 		}
 		server = getServer(result)
 		if server == "" {
-			return "", fmt.Errorf("whois: no whois server found for domain: %s", domain)
+			return "", fmt.Errorf("whois: %w: %s", ErrWhoisServerNotFound, domain)
 		}
 	} else {
 		server = strings.ToLower(servers[0])
