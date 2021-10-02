@@ -1,0 +1,48 @@
+# gotest.yaml
+# Maintainer: https://www.likexian.com
+# Licensed under the Apache License 2.0
+
+name: GoTest
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Golangci lint
+        uses: golangci/golangci-lint-action@v2.5.2
+        with:
+          version: latest
+          args: -v
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        go: [1.13.x, 1.14.x, 1.15.x, 1.16.x, 1.17.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: GoTest code
+        run: |
+          sudo go test -race -coverprofile="coverage.txt" -covermode=atomic ./...
+          coverage=$(go tool cover -func=coverage.txt | grep total | grep -Eo '[0-9]+\.[0-9]+')
+          echo "{\"coverage\": $coverage}"
+          if [[ "${{ matrix.go }}" == "1.17.x" ]]; then
+            repository=$(echo '${{ github.repository }}' | awk -F'/' '{print $2}')
+            curl -A "coverage client/1.0.0" -H "X-Release-Token:${{ secrets.RELEASE_TOKEN }}" -F "coverage=$coverage" https://release.likexian.com/$repository/coverage
+          fi
