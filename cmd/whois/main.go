@@ -38,7 +38,7 @@ func main() {
 	go checkUpdate(updateMessage, whois.Version())
 
 	server := flag.String("h", "", "specify the whois server")
-	fmtJson := flag.Bool("j", false, "output format as json")
+	outJSON := flag.Bool("j", false, "output format as json")
 	version := flag.Bool("v", false, "show the whois version")
 	flag.Parse()
 
@@ -71,7 +71,7 @@ options:
 		os.Exit(1)
 	}
 
-	if *fmtJson {
+	if *outJSON {
 		info, err := whoisparser.Parse(text)
 		if err != nil {
 			fmt.Println(err.Error())
