@@ -118,7 +118,7 @@ func checkUpdate(updateMessage chan string, version string) {
 		}
 		message := fmt.Sprintf(";; %s: Your version of whois is outdate, the latest is v%s.\n",
 			emergency, rsp.Latest)
-		message += fmt.Sprintf(";; You can update by downloading from %s", rsp.ProductUrl)
+		message += fmt.Sprintf(";; You can update by downloading from %s", rsp.ProductURL)
 		updateMessage <- message
 	}
 

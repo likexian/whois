@@ -164,6 +164,7 @@ func (c *Client) rawQuery(domain, server string) (string, error) {
 		}
 	}
 
+	// See: https://github.com/likexian/whois/issues/17
 	if server == "whois.godaddy" {
 		server = "whois.godaddy.com"
 	}
