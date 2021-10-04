@@ -53,7 +53,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.12.1"
+	return "1.12.3"
 }
 
 // Author returns package author
@@ -104,7 +104,7 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 
 	domain = strings.Trim(strings.TrimSpace(domain), ".")
 	if domain == "" {
-		return "", fmt.Errorf("whois: %w", ErrDomainEmpty)
+		return "", ErrDomainEmpty
 	}
 
 	isASN := IsASN(domain)
@@ -119,7 +119,9 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 	}
 
 	var server string
-	if len(servers) == 0 || servers[0] == "" {
+	if len(servers) > 0 && servers[0] != "" {
+		server = strings.ToLower(servers[0])
+	} else {
 		ext := getExtension(domain)
 		result, err := c.rawQuery(ext, defaultWhoisServer)
 		if err != nil {
@@ -127,10 +129,8 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 		}
 		server = getServer(result)
 		if server == "" {
-			return "", fmt.Errorf("whois: %w: %s", ErrWhoisServerNotFound, domain)
+			return "", fmt.Errorf("%w: %s", ErrWhoisServerNotFound, domain)
 		}
-	} else {
-		server = strings.ToLower(servers[0])
 	}
 
 	result, err = c.rawQuery(domain, server)

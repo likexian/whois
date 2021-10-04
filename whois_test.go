@@ -20,6 +20,7 @@
 package whois
 
 import (
+	"errors"
 	"testing"
 	"time"
 
@@ -34,15 +35,21 @@ func TestVersion(t *testing.T) {
 }
 
 func TestWhoisFail(t *testing.T) {
-	tests := []string{
-		"",
-		"likexian.jp?e",
-		"1.1.1.1!",
+	tests := []struct {
+		domain string
+		err    error
+	}{
+		{"", ErrDomainEmpty},
+		{"likexian.jp?e", ErrWhoisServerNotFound},
+		{"1.1.1.1!", ErrWhoisServerNotFound},
 	}
 
 	for _, v := range tests {
-		_, err := Whois(v)
+		_, err := Whois(v.domain)
 		assert.NotNil(t, err)
+		if !errors.Is(err, v.err) {
+			t.Fatalf("expect %v but got %v", v.err, err)
+		}
 	}
 
 	_, err := Whois("likexian.com", "127.0.0.1")
