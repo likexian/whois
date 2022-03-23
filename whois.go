@@ -71,7 +71,7 @@ func Whois(domain string, servers ...string) (result string, err error) {
 	return DefaultClient.Whois(domain, servers...)
 }
 
-// New returns new whois client
+// NewClient returns new whois client
 func NewClient() *Client {
 	return &Client{
 		dialer: &net.Dialer{
@@ -224,7 +224,9 @@ func getServer(data string) string {
 		if start != -1 {
 			start += len(token)
 			end := strings.Index(data[start:], "\n")
-			return strings.TrimSpace(data[start : start+end])
+			server := strings.TrimSpace(data[start : start+end])
+			server = strings.Trim(server, "/")
+			return server
 		}
 	}
 
