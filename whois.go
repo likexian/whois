@@ -53,7 +53,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.12.5"
+	return "1.13.0"
 }
 
 // Author returns package author
@@ -115,35 +115,35 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 	}
 
 	if !strings.Contains(domain, ".") && !strings.Contains(domain, ":") && !isASN {
-		return c.rawQuery(domain, defaultWhoisServer)
+		return c.rawQuery(domain, defaultWhoisServer, defaultWhoisPort)
 	}
 
-	var server string
+	var server, port string
 	if len(servers) > 0 && servers[0] != "" {
 		server = strings.ToLower(servers[0])
 	} else {
 		ext := getExtension(domain)
-		result, err := c.rawQuery(ext, defaultWhoisServer)
+		result, err := c.rawQuery(ext, defaultWhoisServer, defaultWhoisPort)
 		if err != nil {
 			return "", fmt.Errorf("whois: query for whois server failed: %w", err)
 		}
-		server = getServer(result)
+		server, port = getServer(result)
 		if server == "" {
 			return "", fmt.Errorf("%w: %s", ErrWhoisServerNotFound, domain)
 		}
 	}
 
-	result, err = c.rawQuery(domain, server)
+	result, err = c.rawQuery(domain, server, port)
 	if err != nil {
 		return
 	}
 
-	refServer := getServer(result)
+	refServer, refPort := getServer(result)
 	if refServer == "" || refServer == server {
 		return
 	}
 
-	data, err := c.rawQuery(domain, refServer)
+	data, err := c.rawQuery(domain, refServer, refPort)
 	if err == nil {
 		result += data
 	}
@@ -152,7 +152,7 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 }
 
 // rawQuery do raw query to the server
-func (c *Client) rawQuery(domain, server string) (string, error) {
+func (c *Client) rawQuery(domain, server, port string) (string, error) {
 	c.elapsed = 0
 	start := time.Now()
 
@@ -169,7 +169,7 @@ func (c *Client) rawQuery(domain, server string) (string, error) {
 		server = "whois.godaddy.com"
 	}
 
-	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, defaultWhoisPort))
+	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, port))
 	if err != nil {
 		return "", fmt.Errorf("whois: connect to whois server failed: %w", err)
 	}
@@ -213,10 +213,11 @@ func getExtension(domain string) string {
 }
 
 // getServer returns server from whois data
-func getServer(data string) string {
+func getServer(data string) (string, string) {
 	tokens := []string{
 		"Registrar WHOIS Server: ",
 		"whois: ",
+		"ReferralServer: ",
 	}
 
 	for _, token := range tokens {
@@ -225,12 +226,19 @@ func getServer(data string) string {
 			start += len(token)
 			end := strings.Index(data[start:], "\n")
 			server := strings.TrimSpace(data[start : start+end])
+			server = strings.TrimPrefix(server, "whois:")
+			server = strings.TrimPrefix(server, "rwhois:")
 			server = strings.Trim(server, "/")
-			return server
+			port := defaultWhoisPort
+			if strings.Contains(server, ":") {
+				v := strings.Split(server, ":")
+				server, port = v[0], v[1]
+			}
+			return server, port
 		}
 	}
 
-	return ""
+	return "", ""
 }
 
 // IsASN returns if s is ASN

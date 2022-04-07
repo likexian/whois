@@ -81,6 +81,8 @@ func TestWhois(t *testing.T) {
 		"as4610",
 		"as27648",
 		"as36865",
+		"172.109.217.241",
+		"144.200.46.16",
 	}
 
 	for _, v := range tests {
