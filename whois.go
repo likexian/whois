@@ -53,7 +53,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.13.0"
+	return "1.14.0"
 }
 
 // Author returns package author
@@ -121,6 +121,7 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 	var server, port string
 	if len(servers) > 0 && servers[0] != "" {
 		server = strings.ToLower(servers[0])
+		port = defaultWhoisPort
 	} else {
 		ext := getExtension(domain)
 		result, err := c.rawQuery(ext, defaultWhoisServer, defaultWhoisPort)
