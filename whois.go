@@ -53,7 +53,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.14.0"
+	return "1.14.1"
 }
 
 // Author returns package author
