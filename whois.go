@@ -21,7 +21,7 @@ package whois
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"strconv"
 	"strings"
@@ -170,6 +170,10 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 		server = "whois.godaddy.com"
 	}
 
+	if server == "porkbun.com/whois" {
+		server = "whois.porkbun.com"
+	}
+
 	conn, err := c.dialer.Dial("tcp", net.JoinHostPort(server, port))
 	if err != nil {
 		return "", fmt.Errorf("whois: connect to whois server failed: %w", err)
@@ -187,7 +191,7 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 	c.elapsed = time.Since(start)
 
 	_ = conn.SetReadDeadline(time.Now().Add(c.timeout - c.elapsed))
-	buffer, err := ioutil.ReadAll(conn)
+	buffer, err := io.ReadAll(conn)
 	if err != nil {
 		return "", fmt.Errorf("whois: read from whois server failed: %w", err)
 	}
@@ -227,6 +231,7 @@ func getServer(data string) (string, string) {
 			start += len(token)
 			end := strings.Index(data[start:], "\n")
 			server := strings.TrimSpace(data[start : start+end])
+			server = strings.TrimPrefix(server, "https:")
 			server = strings.TrimPrefix(server, "http:")
 			server = strings.TrimPrefix(server, "whois:")
 			server = strings.TrimPrefix(server, "rwhois:")
