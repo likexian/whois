@@ -221,6 +221,7 @@ func getExtension(domain string) string {
 func getServer(data string) (string, string) {
 	tokens := []string{
 		"Registrar WHOIS Server: ",
+		"refer: ",
 		"whois: ",
 		"ReferralServer: ",
 	}
