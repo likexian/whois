@@ -53,7 +53,7 @@ type Client struct {
 
 // Version returns package version
 func Version() string {
-	return "1.14.8"
+	return "1.15.0"
 }
 
 // Author returns package author
@@ -95,7 +95,7 @@ func (c *Client) SetTimeout(timeout time.Duration) {
 func (c *Client) Whois(domain string, servers ...string) (result string, err error) {
 	start := time.Now()
 	defer func() {
-		result = fmt.Sprintf("%s\n\n;; Query time: %d msec\n;; WHEN: %s\n",
+		result = fmt.Sprintf("%s\n\n%% Query time: %d msec\n%% WHEN: %s\n",
 			strings.TrimRight(result, "\n"),
 			time.Since(start).Milliseconds(),
 			start.Format("Mon Jan 02 15:04:05 MST 2006"),
@@ -170,6 +170,7 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 		server = "whois.godaddy.com"
 	}
 
+	// See: https://github.com/likexian/whois/pull/30
 	if server == "porkbun.com/whois" {
 		server = "whois.porkbun.com"
 	}

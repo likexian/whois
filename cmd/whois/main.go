@@ -119,9 +119,9 @@ func checkUpdate(updateMessage chan string, version string) {
 			if rsp.Emergency {
 				emergency = "WARNING"
 			}
-			message := fmt.Sprintf(";; %s: Your version of whois is outdate, the latest is %s.\n",
+			message := fmt.Sprintf("%% %s: Your version of whois is outdate, the latest is %s.\n",
 				emergency, rsp.Latest)
-			message += fmt.Sprintf(";; You can update it by downloading from %s", rsp.ProductURL)
+			message += fmt.Sprintf("%% You can update it by downloading from %s", rsp.ProductURL)
 			updateMessage <- message
 		}
 	}
