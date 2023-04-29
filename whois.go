@@ -46,9 +46,10 @@ var DefaultClient = NewClient()
 
 // Client is whois client
 type Client struct {
-	dialer  proxy.Dialer
-	timeout time.Duration
-	elapsed time.Duration
+	dialer       proxy.Dialer
+	timeout      time.Duration
+	elapsed      time.Duration
+	disableStats bool
 }
 
 // Version returns package version
@@ -82,24 +83,33 @@ func NewClient() *Client {
 }
 
 // SetDialer set query net dialer
-func (c *Client) SetDialer(dialer proxy.Dialer) {
+func (c *Client) SetDialer(dialer proxy.Dialer) *Client {
 	c.dialer = dialer
+	return c
 }
 
 // SetTimeout set query timeout
-func (c *Client) SetTimeout(timeout time.Duration) {
+func (c *Client) SetTimeout(timeout time.Duration) *Client {
 	c.timeout = timeout
+	return c
+}
+
+// SetDisableStats set disable stats
+func (c *Client) SetDisableStats(disabled bool) *Client {
+	c.disableStats = disabled
+	return c
 }
 
 // Whois do the whois query and returns whois information
 func (c *Client) Whois(domain string, servers ...string) (result string, err error) {
 	start := time.Now()
 	defer func() {
-		result = fmt.Sprintf("%s\n\n%% Query time: %d msec\n%% WHEN: %s\n",
-			strings.TrimRight(result, "\n"),
-			time.Since(start).Milliseconds(),
-			start.Format("Mon Jan 02 15:04:05 MST 2006"),
-		)
+		result = strings.TrimSpace(result)
+		if result != "" && !c.disableStats {
+			result = fmt.Sprintf("%s\n\n%% Query time: %d msec\n%% WHEN: %s\n",
+				result, time.Since(start).Milliseconds(), start.Format("Mon Jan 02 15:04:05 MST 2006"),
+			)
+		}
 	}()
 
 	domain = strings.Trim(strings.TrimSpace(domain), ".")

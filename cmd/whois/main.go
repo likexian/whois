@@ -62,10 +62,8 @@ options:
 		os.Exit(1)
 	}
 
-	c := whois.NewClient()
-	c.SetDialer(proxy.FromEnvironment())
-
-	text, err := c.Whois(flag.Args()[0], *server)
+	text, err := whois.NewClient().
+		SetDialer(proxy.FromEnvironment()).Whois(flag.Args()[0], *server)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
