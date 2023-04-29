@@ -99,7 +99,7 @@ options:
 // checkUpdate checks version update
 func checkUpdate(updateMessage chan string, version string) {
 	checkPoint := "https://release.likexian.com/whois/update"
-	cacheFile := fmt.Sprintf("%s/whois.update.%s.cache", os.TempDir(), version)
+	cacheFile := fmt.Sprintf("%s/whois.update.cache", os.TempDir())
 
 	req := &xversion.CheckUpdateRequest{
 		Product:       "whois",
@@ -112,14 +112,18 @@ func checkUpdate(updateMessage chan string, version string) {
 	ctx := context.Background()
 	rsp, err := req.Run(ctx)
 	if err == nil && rsp.Outdated {
-		emergency := "NOTICE"
-		if rsp.Emergency {
-			emergency = "WARNING"
+		if version != rsp.Current {
+			_ = os.Remove(cacheFile)
+		} else {
+			emergency := "NOTICE"
+			if rsp.Emergency {
+				emergency = "WARNING"
+			}
+			message := fmt.Sprintf(";; %s: Your version of whois is outdate, the latest is %s.\n",
+				emergency, rsp.Latest)
+			message += fmt.Sprintf(";; You can update it by downloading from %s", rsp.ProductURL)
+			updateMessage <- message
 		}
-		message := fmt.Sprintf(";; %s: Your version of whois is outdate, the latest is %s.\n",
-			emergency, rsp.Latest)
-		message += fmt.Sprintf(";; You can update it by downloading from %s", rsp.ProductURL)
-		updateMessage <- message
 	}
 
 	updateMessage <- ""
