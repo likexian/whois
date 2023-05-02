@@ -46,10 +46,11 @@ var DefaultClient = NewClient()
 
 // Client is whois client
 type Client struct {
-	dialer       proxy.Dialer
-	timeout      time.Duration
-	elapsed      time.Duration
-	disableStats bool
+	dialer          proxy.Dialer
+	timeout         time.Duration
+	elapsed         time.Duration
+	disableStats    bool
+	disableReferral bool
 }
 
 // Version returns package version
@@ -100,6 +101,12 @@ func (c *Client) SetDisableStats(disabled bool) *Client {
 	return c
 }
 
+// SetDisableReferral if set to true, will not query the referral server.
+func (c *Client) SetDisableReferral(disabled bool) *Client {
+	c.disableReferral = disabled
+	return c
+}
+
 // Whois do the whois query and returns whois information
 func (c *Client) Whois(domain string, servers ...string) (result string, err error) {
 	start := time.Now()
@@ -146,6 +153,10 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 
 	result, err = c.rawQuery(domain, server, port)
 	if err != nil {
+		return
+	}
+
+	if c.disableReferral {
 		return
 	}
 
