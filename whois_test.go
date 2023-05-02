@@ -21,6 +21,7 @@ package whois
 
 import (
 	"errors"
+	"strings"
 	"testing"
 	"time"
 
@@ -32,6 +33,20 @@ func TestVersion(t *testing.T) {
 	assert.Contains(t, Version(), ".")
 	assert.Contains(t, Author(), "likexian")
 	assert.Contains(t, License(), "Apache License")
+}
+
+func TestClient_SetDisableReferral(t *testing.T) {
+	client := NewClient()
+
+	resp, err := client.Whois("likexian.com")
+	assert.Nil(t, err)
+	assert.Equal(t, strings.Count(resp, "Domain Name: LIKEXIAN.COM"), 2)
+
+	client.SetDisableReferral(true)
+
+	resp, err = client.Whois("likexian.com")
+	assert.Nil(t, err)
+	assert.Equal(t, strings.Count(resp, "Domain Name: LIKEXIAN.COM"), 1)
 }
 
 func TestWhoisFail(t *testing.T) {
