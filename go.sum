@@ -1,8 +1,8 @@
 github.com/likexian/gokit v0.25.13 h1:p2Uw3+6fGG53CwdU2Dz0T6bOycdb2+bAFAa3ymwWVkM=
 github.com/likexian/gokit v0.25.13/go.mod h1:qQhEWFBEfqLCO3/vOEo2EDKd+EycekVtUK4tex+l2H4=
-github.com/likexian/whois-parser v1.24.8 h1:41RCpnRXSvlo9U7vPuLORi187UkTURH+8HXUcGdnhZA=
-github.com/likexian/whois-parser v1.24.8/go.mod h1:b6STMHHDaSKbd4PzGrP50wWE5NzeBUETa/hT9gI0G9I=
-golang.org/x/net v0.9.0 h1:aWJ/m6xSmxWBx+V0XRHTlrYrPG56jKsLdTFmsSsCzOM=
-golang.org/x/net v0.9.0/go.mod h1:d48xBJpPfHeWQsugry2m+kC02ZBRGRgulfHnEXEuWns=
-golang.org/x/text v0.9.0 h1:2sjJmO8cDvYveuX97RDLsxlyUxLl+GHoLxBiRdHllBE=
-golang.org/x/text v0.9.0/go.mod h1:e1OnstbJyHTd6l/uOt8jFFHp6TRDWZR/bV3emEE/zU8=
+github.com/likexian/whois-parser v1.24.9 h1:BT6fzO3lj3F07yzVv0YXoaj+K4Ush0/cF+Yp6tvJJgk=
+github.com/likexian/whois-parser v1.24.9/go.mod h1:b6STMHHDaSKbd4PzGrP50wWE5NzeBUETa/hT9gI0G9I=
+golang.org/x/net v0.14.0 h1:BONx9s002vGdD9umnlX1Po8vOZmrgH34qlHcD1MfK14=
+golang.org/x/net v0.14.0/go.mod h1:PpSgVXXLK0OxS0F31C1/tv6XNguvCrnXIDrFMspZIUI=
+golang.org/x/text v0.12.0 h1:k+n5B8goJNdU7hSvEtMUz3d1Q6D/XW4COJSJR6fN0mc=
+golang.org/x/text v0.12.0/go.mod h1:TvPlkZtksWOMsz7fbANvkp4WM8x/WCo/om8BMLbz+aE=
