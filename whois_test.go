@@ -114,9 +114,10 @@ func TestNewClient(t *testing.T) {
 	c := NewClient()
 	var err error
 
-	c.SetTimeout(10 * time.Microsecond)
+	c.SetTimeout(10 * time.Millisecond)
 	_, err = c.Whois("likexian.com")
 	assert.NotNil(t, err)
+	assert.Contains(t, err.Error(), "timeout")
 
 	c.SetTimeout(10 * time.Second)
 	_, err = c.Whois("likexian.com")
