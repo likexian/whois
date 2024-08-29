@@ -53,6 +53,15 @@ type Client struct {
 	disableReferral bool
 }
 
+type hasDial interface {
+	Dial(network, addr string) (net.Conn, error)
+}
+
+type hasTimeout struct {
+	Timeout time.Duration
+	hasDial
+}
+
 // Version returns package version
 func Version() string {
 	return "1.15.4"
@@ -92,6 +101,10 @@ func (c *Client) SetDialer(dialer proxy.Dialer) *Client {
 // SetTimeout set query timeout
 func (c *Client) SetTimeout(timeout time.Duration) *Client {
 	c.timeout = timeout
+	if d, ok := c.dialer.(*hasTimeout); ok {
+		fmt.Println("hasTimeout")
+		d.Timeout = timeout
+	}
 	return c
 }
 
