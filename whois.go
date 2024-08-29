@@ -96,11 +96,10 @@ func (c *Client) SetDialer(dialer proxy.Dialer) *Client {
 
 // SetTimeout set query timeout
 func (c *Client) SetTimeout(timeout time.Duration) *Client {
-	c.timeout = timeout
 	if d, ok := c.dialer.(*hasTimeout); ok {
-		fmt.Println("hasTimeout")
 		d.Timeout = timeout
 	}
+	c.timeout = timeout
 	return c
 }
 
