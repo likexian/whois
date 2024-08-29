@@ -53,13 +53,9 @@ type Client struct {
 	disableReferral bool
 }
 
-type hasDial interface {
-	Dial(network, addr string) (net.Conn, error)
-}
-
 type hasTimeout struct {
 	Timeout time.Duration
-	hasDial
+	proxy.Dialer
 }
 
 // Version returns package version
