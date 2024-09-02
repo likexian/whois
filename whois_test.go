@@ -71,6 +71,18 @@ func TestWhoisFail(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
+func TestWhoisTimeout(t *testing.T) {
+	client := NewClient()
+	client.SetTimeout(1 * time.Millisecond)
+	_, err := client.Whois("google.com")
+	assert.NotNil(t, err)
+	assert.Contains(t, err.Error(), "timeout")
+
+	client.SetTimeout(10 * time.Second)
+	_, err = client.Whois("google.com")
+	assert.Nil(t, err)
+}
+
 func TestWhois(t *testing.T) {
 	tests := []string{
 		"com",
