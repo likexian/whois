@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -146,6 +147,11 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 	if len(servers) > 0 && servers[0] != "" {
 		server = strings.ToLower(servers[0])
 		port = defaultWhoisPort
+		reHasNumericPort := regexp.MustCompile(`:(\d+)$`)
+		if matches := reHasNumericPort.FindStringSubmatch(server); matches != nil {
+			server = server[:len(server)-len(matches[0])]
+			port = matches[1]
+		}
 	} else {
 		ext := getExtension(domain)
 		result, err := c.rawQuery(ext, defaultWhoisServer, defaultWhoisPort)

@@ -118,8 +118,11 @@ func TestWhois(t *testing.T) {
 		assert.NotEqual(t, b, "")
 	}
 
-	_, err := Whois("likexian.com", "com.whois-servers.net")
-	assert.Nil(t, err)
+	servers := []string{"com.whois-servers.net", "com.whois-servers.net:43"}
+	for _, server := range servers {
+		_, err := Whois("likexian.com", server)
+		assert.Nil(t, err)
+	}
 }
 
 func TestNewClient(t *testing.T) {
