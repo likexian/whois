@@ -21,6 +21,7 @@ package whois
 
 import (
 	"errors"
+	"os"
 	"strings"
 	"testing"
 	"time"
@@ -164,5 +165,32 @@ func TestIsASN(t *testing.T) {
 
 	for _, v := range tests {
 		assert.Equal(t, IsASN(v.in), v.out)
+	}
+}
+
+func TestGetServer(t *testing.T) {
+	tests := []struct {
+		filename string
+		server   string
+		port     string
+	}{
+		{"whois_arin_net_170.txt", "whois.lacnic.net", "43"},
+		{"whois_iana_org_171.txt", "whois.apnic.net", "43"},
+		{"whois_arin_net_174.txt", "rwhois.shawcable.net", "4321"},
+		{"rwhois_shawcable_net_4321_174.txt", "root.rwhois.net", "4321"},
+		{"whois_iana_org_as264957.txt", "whois.lacnic.net", "43"},
+		// Non-referral responses
+		{"whois_lacnic_net_170.txt", "", ""},
+		{"whois_apnic_net_171.txt", "", ""},
+		{"whois_lacnic_net_as264957.txt", "", ""},
+	}
+
+	for _, tc := range tests {
+		data, err := os.ReadFile("testdata/" + tc.filename)
+		assert.Nil(t, err)
+
+		server, port := getServer(string(data))
+		assert.Equal(t, server, tc.server)
+		assert.Equal(t, port, tc.port)
 	}
 }

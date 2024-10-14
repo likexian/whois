@@ -1,0 +1,19 @@
+
+% IANA WHOIS server
+% for more information on IANA, visit http://www.iana.org
+% This query returned 1 object
+
+refer:        whois.lacnic.net
+
+as-block:     264605-265628
+organisation: Assigned by LACNIC
+
+whois:        whois.lacnic.net
+descr:        Assigned by LACNIC
+
+changed:      2014-09-05
+source:       IANA
+
+% Query time: 765 msec
+% WHEN: Tue Oct 08 18:09:52 AEDT 2024
+

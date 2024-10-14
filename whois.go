@@ -249,13 +249,14 @@ func getExtension(domain string) string {
 	return ext
 }
 
-// getServer returns server from whois data
+// getServer returns the first referral server from whois data (if any)
 func getServer(data string) (string, string) {
 	tokens := []string{
 		"Registrar WHOIS Server: ",
 		"whois: ",
 		"ReferralServer: ",
 		"refer: ",
+		"%referral ", // e.g. %referral rwhois://root.rwhois.net:4321/auth-area=.
 	}
 
 	for _, token := range tokens {
@@ -273,6 +274,12 @@ func getServer(data string) (string, string) {
 			if strings.Contains(server, ":") {
 				v := strings.Split(server, ":")
 				server, port = v[0], v[1]
+				// Strip trailing non-numeric characters from port
+				reNumericTrailing := regexp.MustCompile(`^(\d+)\D.*$`)
+				matches := reNumericTrailing.FindStringSubmatch(port)
+				if matches != nil {
+					port = matches[1]
+				}
 			}
 			return server, port
 		}
