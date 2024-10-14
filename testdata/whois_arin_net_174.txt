@@ -1,0 +1,79 @@
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+#
+# Copyright 1997-2024, American Registry for Internet Numbers, Ltd.
+#
+
+
+NetRange:       174.0.0.0 - 174.7.255.255
+CIDR:           174.0.0.0/13
+NetName:        SHAW-COMM
+NetHandle:      NET-174-0-0-0-1
+Parent:         NET174 (NET-174-0-0-0-0)
+NetType:        Direct Allocation
+OriginAS:       AS6327
+Organization:   Shaw Communications Inc. (SHAWC)
+RegDate:        2008-11-19
+Updated:        2012-03-02
+Ref:            https://rdap.arin.net/registry/ip/174.0.0.0
+
+
+
+OrgName:        Shaw Communications Inc.
+OrgId:          SHAWC
+Address:        Suite 800
+Address:        630 - 3rd Ave. SW
+City:           Calgary
+StateProv:      AB
+PostalCode:     T2P-4L4
+Country:        CA
+RegDate:        2003-03-05
+Updated:        2024-03-28
+Ref:            https://rdap.arin.net/registry/entity/SHAWC
+
+ReferralServer:  rwhois://rwhois.shawcable.net:4321
+
+OrgAbuseHandle: SHAWA-ARIN
+OrgAbuseName:   SHAW ABUSE
+OrgAbusePhone:  +1-403-750-7420 
+OrgAbuseEmail:  internet.abuse@sjrb.ca
+OrgAbuseRef:    https://rdap.arin.net/registry/entity/SHAWA-ARIN
+
+OrgTechHandle: ZS178-ARIN
+OrgTechName:   IP Admin
+OrgTechPhone:  +1-416-786-1640 
+OrgTechEmail:  Adam.Pattenden@rci.rogers.com
+OrgTechRef:    https://rdap.arin.net/registry/entity/ZS178-ARIN
+
+OrgTechHandle: ZHUJI1-ARIN
+OrgTechName:   Zhu, Jing 
+OrgTechPhone:  +1-587-393-0668 
+OrgTechEmail:  jing.zhu@sjrb.ca
+OrgTechRef:    https://rdap.arin.net/registry/entity/ZHUJI1-ARIN
+
+RTechHandle: ZS178-ARIN
+RTechName:   IP Admin
+RTechPhone:  +1-416-786-1640 
+RTechEmail:  Adam.Pattenden@rci.rogers.com
+RTechRef:    https://rdap.arin.net/registry/entity/ZS178-ARIN
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+#
+# Copyright 1997-2024, American Registry for Internet Numbers, Ltd.
+#
+
+% Query time: 622 msec
+% WHEN: Tue Oct 08 17:56:31 AEDT 2024
+

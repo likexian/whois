@@ -1,0 +1,19 @@
+
+% IANA WHOIS server
+% for more information on IANA, visit http://www.iana.org
+% This query returned 1 object
+
+refer:        whois.apnic.net
+
+inetnum:      171.0.0.0 - 171.255.255.255
+organisation: Administered by APNIC
+status:       LEGACY
+
+whois:        whois.apnic.net
+
+changed:      1993-05
+source:       IANA
+
+% Query time: 872 msec
+% WHEN: Tue Oct 08 17:57:40 AEDT 2024
+

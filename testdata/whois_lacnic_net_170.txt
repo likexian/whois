@@ -1,0 +1,48 @@
+
+% IP Client: 2001:f40:908:7e:b47d:e5a2:b31a:acbf
+ 
+% Copyright (c) Nic.br
+%  The use of the data below is only permitted as described in
+%  full by the Use and Privacy Policy at https://registro.br/upp ,
+%  being prohibited its distribution, commercialization or
+%  reproduction, in particular, to use it for advertising or
+%  any similar purpose.
+%  2024-10-08T04:08:21-03:00 - IP: 2001:f40:908:7e:b47d:e5a2:b31a:acbf
+
+inetnum:     170.0.0.0/22
+aut-num:     AS264957
+abuse-c:     CCPRU1
+owner:       Coopercitrus Cooperativa de Produtores Rurais
+ownerid:     45.236.791/0001-91
+responsible: Depto Redes Coopercitrus
+country:     BR
+owner-c:     CCPRU1
+tech-c:      CCPRU1
+inetrev:     170.0.0.0/22
+nserver:     srvdns01.coopercitrus.com.br
+nsstat:      20241004 AA
+nslastaa:    20241004
+nserver:     srvdns02.coopercitrus.com.br
+nsstat:      20241004 AA
+nslastaa:    20241004
+created:     20160509
+changed:     20180127
+
+nic-hdl-br:  CCPRU1
+person:      Coopercitrus Cooperativa de Prod Rurais
+e-mail:      noc@coopercitrus.com.br
+country:     BR
+created:     20180126
+changed:     20240220
+
+% Security and mail abuse issues should also be addressed to
+% cert.br, http://www.cert.br/ , respectivelly to cert@cert.br
+% and mail-abuse@cert.br
+%
+% whois.registro.br accepts only direct match queries. Types
+% of queries are: domain (.br), registrant (tax ID), ticket,
+% provider, CIDR block, IP and ASN.
+
+% Query time: 737 msec
+% WHEN: Tue Oct 08 18:08:21 AEDT 2024
+

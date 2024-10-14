@@ -1,0 +1,128 @@
+
+% [whois.apnic.net]
+% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
+
+% Information related to '171.0.0.0 - 171.1.255.255'
+
+% Abuse contact for '171.0.0.0 - 171.1.255.255' is 'abuse@starhub.com'
+
+inetnum:        171.0.0.0 - 171.1.255.255
+netname:        STARHUBINTERNET-SG
+descr:          StarHub Internet Pte Ltd
+descr:          Singapore Broadband Access Provider
+country:        SG
+org:            ORG-SIPL5-AP
+admin-c:        SH1233-AP
+tech-c:         SH1233-AP
+abuse-c:        AS2611-AP
+status:         ALLOCATED PORTABLE
+remarks:        --------------------------------------------------------
+remarks:        To report network abuse, please contact mnt-irt
+remarks:        For troubleshooting, please contact tech-c and admin-c
+remarks:        Report invalid contact via www.apnic.net/invalidcontact
+remarks:        --------------------------------------------------------
+mnt-by:         APNIC-HM
+mnt-lower:      MAINT-AS4657-AP
+mnt-routes:     MAINT-AS4657-AP
+mnt-irt:        IRT-STARHUBINTERNET-SG
+last-modified:  2020-09-09T22:34:05Z
+source:         APNIC
+
+irt:            IRT-STARHUBINTERNET-SG
+address:        StarHub Ltd 67 Ubi Avenue 1 Singapore 408942 # 05-01 StarHub Green
+e-mail:         abuse@starhub.com
+abuse-mailbox:  abuse@starhub.com
+admin-c:        ACS7-AP
+tech-c:         ACS7-AP
+auth:           # Filtered
+remarks:        abuse@starhub.com was validated on 2024-08-19
+mnt-by:         MAINT-AS4657-AP
+last-modified:  2024-08-19T03:56:08Z
+source:         APNIC
+
+organisation:   ORG-SIPL5-AP
+org-name:       Starhub Ltd.
+org-type:       LIR
+country:        SG
+address:        67 Ubi Avenue 1
+address:        # 05-01
+address:        StarHub Green
+phone:          +65-68255000
+fax-no:         +65-68206008
+e-mail:         apnic-scv@starhub.com
+mnt-ref:        APNIC-HM
+mnt-by:         APNIC-HM
+last-modified:  2023-09-05T02:14:42Z
+source:         APNIC
+
+role:           ABUSE STARHUBINTERNETSG
+country:        ZZ
+address:        StarHub Ltd 67 Ubi Avenue 1 Singapore 408942 # 05-01 StarHub Green
+phone:          +000000000
+e-mail:         abuse@starhub.com
+admin-c:        ACS7-AP
+tech-c:         ACS7-AP
+nic-hdl:        AS2611-AP
+remarks:        Generated from irt object IRT-STARHUBINTERNET-SG
+remarks:        abuse@starhub.com was validated on 2024-08-19
+abuse-mailbox:  abuse@starhub.com
+mnt-by:         APNIC-ABUSE
+last-modified:  2024-08-19T03:56:57Z
+source:         APNIC
+
+role:           StarHub IP Administrator
+address:        c/o IP NOC
+                19 Tai Seng Drive
+                Singapore 535222
+country:        SG
+phone:          +65-6825-7878
+e-mail:         ipnoc@starhub.com
+admin-c:        SH1233-AP
+tech-c:         SH1233-AP
+nic-hdl:        SH1233-AP
+mnt-by:         MAINT-AS4657-AP
+last-modified:  2018-12-13T19:07:23Z
+abuse-mailbox:  abuse@starhub.com
+source:         APNIC
+
+% Information related to '171.0.0.0/24AS138345'
+
+route:          171.0.0.0/24
+origin:         AS138345
+descr:          Starhub Internet Pte Ltd
+                67 Ubi Avenue 1
+                # 05-01
+                StarHub Green
+mnt-by:         MAINT-AS4657-AP
+last-modified:  2021-06-03T08:19:25Z
+source:         APNIC
+
+% Information related to '171.0.0.0/24AS4657'
+
+route:          171.0.0.0/24
+origin:         AS4657
+descr:          Starhub Internet Pte Ltd
+                67 Ubi Avenue 1
+                # 05-01
+                StarHub Green
+mnt-by:         MAINT-AS4657-AP
+last-modified:  2021-06-03T08:18:51Z
+source:         APNIC
+
+% Information related to '171.0.0.0/24AS9874'
+
+route:          171.0.0.0/24
+origin:         AS9874
+descr:          Starhub Internet Pte Ltd
+                67 Ubi Avenue 1
+                # 05-01
+                StarHub Green
+mnt-by:         MAINT-AS4657-AP
+last-modified:  2021-06-03T08:19:48Z
+source:         APNIC
+
+% This query was served by the APNIC Whois Service version 1.88.25 (WHOIS-JP3)
+
+% Query time: 195 msec
+% WHEN: Tue Oct 08 17:59:27 AEDT 2024
+

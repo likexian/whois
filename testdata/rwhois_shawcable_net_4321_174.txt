@@ -1,0 +1,3 @@
+%rwhois V-1.5:003fff:00 rs1so.cg.shawcable.net (by Network Solutions, Inc. V-1.5.9.5)
+%referral rwhois://root.rwhois.net:4321/auth-area=.
+%ok
