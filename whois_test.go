@@ -21,6 +21,7 @@ package whois
 
 import (
 	"errors"
+	"net"
 	"os"
 	"strings"
 	"testing"
@@ -124,6 +125,32 @@ func TestWhois(t *testing.T) {
 		_, err := Whois("likexian.com", server)
 		assert.Nil(t, err)
 	}
+}
+
+func TestWhoisServerError(t *testing.T) {
+	// Start local TCP server that simulates rate limiting
+	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	assert.Nil(t, err)
+	defer listener.Close()
+
+	go func() {
+		conn, err := listener.Accept()
+		if err != nil {
+			return
+		}
+
+		// Simulate rate limit response from GoDaddy.
+		conn.Write([]byte("Number of allowed queries exceeded"))
+
+		// Close the connection immediately, rather than a graceful shutdown.
+		conn.(*net.TCPConn).SetLinger(0)
+		conn.Close()
+	}()
+
+	client := NewClient()
+	result, err := client.Whois("test.com", listener.Addr().String())
+	assert.NotNil(t, err)
+	assert.Contains(t, result, "Number of allowed queries exceeded")
 }
 
 func TestNewClient(t *testing.T) {

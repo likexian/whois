@@ -219,6 +219,16 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 	_ = conn.SetWriteDeadline(time.Now().Add(c.timeout - elapsed))
 	_, err = conn.Write([]byte(domain + "\r\n"))
 	if err != nil {
+		// Some servers may refuse a request with a reason, immediately closing the connection after sending.
+		// For example, GoDaddy returns "Number of allowed queries exceeded.\r\n", and immediately closes the connection.
+		//
+		// We return both the response _and_ the error, to allow callers to try to parse the response, while
+		// still letting them know an error occurred. In particular, this helps catch rate limit errors.
+		buffer, _ := io.ReadAll(conn)
+		if len(buffer) > 0 {
+			return string(buffer), err
+		}
+
 		return "", fmt.Errorf("whois: send to whois server failed: %w", err)
 	}
 
@@ -227,6 +237,16 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 	_ = conn.SetReadDeadline(time.Now().Add(c.timeout - elapsed))
 	buffer, err := io.ReadAll(conn)
 	if err != nil {
+		if len(buffer) > 0 {
+			// Some servers may refuse a request with a reason, immediately closing the connection after sending.
+			// For example, GoDaddy returns "Number of allowed queries exceeded.\r\n", and immediately closes the connection.
+			//
+			// We return both the response _and_ the error, to allow callers to try to parse the response, while
+			// still letting them know an error occurred (potentially short reads). In particular, this helps
+			// catch rate limit errors.
+			return string(buffer), err
+		}
+
 		return "", fmt.Errorf("whois: read from whois server failed: %w", err)
 	}
 
