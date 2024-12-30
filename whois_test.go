@@ -20,6 +20,7 @@
 package whois
 
 import (
+	"context"
 	"errors"
 	"net"
 	"os"
@@ -82,6 +83,20 @@ func TestWhoisTimeout(t *testing.T) {
 
 	client.SetTimeout(10 * time.Second)
 	_, err = client.Whois("google.com")
+	assert.Nil(t, err)
+}
+
+func TestWhoisContext(t *testing.T) {
+	client := NewClient()
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond)
+	defer cancel()
+	_, err := client.WhoisContext(ctx, "google.com")
+	assert.NotNil(t, err)
+	assert.Contains(t, err.Error(), "timeout")
+
+	ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	_, err = client.WhoisContext(ctx, "google.com")
 	assert.Nil(t, err)
 }
 
@@ -166,7 +181,7 @@ func TestNewClient(t *testing.T) {
 	_, err = c.Whois("likexian.com")
 	assert.Nil(t, err)
 
-	c.SetDialer(proxy.FromEnvironment())
+	c.SetDialer(proxy.FromEnvironment().(proxy.ContextDialer))
 	_, err = c.Whois("likexian.com")
 	assert.Nil(t, err)
 }
