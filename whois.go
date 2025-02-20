@@ -239,6 +239,7 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 		if len(buffer) > 0 {
 			return string(buffer), err
 		}
+
 		return "", fmt.Errorf("whois: send to whois server failed: %w", err)
 	}
 
@@ -256,6 +257,7 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 			// catch rate limit errors.
 			return string(buffer), err
 		}
+
 		return "", fmt.Errorf("whois: read from whois server failed: %w", err)
 	}
 
