@@ -47,10 +47,11 @@ var DefaultClient = NewClient()
 
 // Client is whois client
 type Client struct {
-	dialer          proxy.Dialer
-	timeout         time.Duration
-	disableStats    bool
-	disableReferral bool
+	dialer               proxy.Dialer
+	timeout              time.Duration
+	disableStats         bool
+	disableReferral      bool
+	disableReferralChain bool
 }
 
 type hasTimeout struct {
@@ -112,6 +113,12 @@ func (c *Client) SetDisableStats(disabled bool) *Client {
 // SetDisableReferral if set to true, will not query the referral server.
 func (c *Client) SetDisableReferral(disabled bool) *Client {
 	c.disableReferral = disabled
+	return c
+}
+
+// SetDisableReferralChain controls whether to keep all WHOIS responses in the output
+func (c *Client) SetDisableReferralChain(disabled bool) *Client {
+	c.disableReferralChain = disabled
 	return c
 }
 
@@ -180,7 +187,11 @@ func (c *Client) Whois(domain string, servers ...string) (result string, err err
 
 	data, err := c.rawQuery(domain, refServer, refPort)
 	if err == nil {
-		result += data
+		if c.disableReferralChain {
+			result = data
+		} else {
+			result += data
+		}
 	}
 
 	return
