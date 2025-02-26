@@ -61,7 +61,7 @@ type hasTimeout struct {
 
 // Version returns package version
 func Version() string {
-	return "1.15.5"
+	return "1.15.6"
 }
 
 // Author returns package author
