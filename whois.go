@@ -312,7 +312,12 @@ func getServer(data string) (string, string) {
 					port = matches[1]
 				}
 			}
-			return server, port
+			// basic connection test
+			conn, err := net.Dial("tcp", net.JoinHostPort(server, port))
+			if err == nil {
+				defer conn.Close()
+				return server, port
+			}
 		}
 	}
 
