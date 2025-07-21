@@ -204,7 +204,7 @@ func TestGetServer(t *testing.T) {
 		{"whois_arin_net_170.txt", "whois.lacnic.net", "43"},
 		{"whois_iana_org_171.txt", "whois.apnic.net", "43"},
 		{"whois_arin_net_174.txt", "rwhois.shawcable.net", "4321"},
-		{"rwhois_shawcable_net_4321_174.txt", "root.rwhois.net", "4321"},
+		{"rwhois_shawcable_net_4321_174.txt", "rwhois.shawcable.net", "4321"},
 		{"whois_iana_org_as264957.txt", "whois.lacnic.net", "43"},
 		// Non-referral responses
 		{"whois_lacnic_net_170.txt", "", ""},
