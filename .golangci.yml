@@ -1,0 +1,53 @@
+# .golangci.yml
+# Maintainer: https://www.likexian.com
+# Licensed under the Apache License 2.0
+
+run:
+  timeout: 5m
+  skip-dirs-use-default: true
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - cyclop
+    - durationcheck
+    - errname
+    - errorlint
+    - exportloopref
+    - gofmt
+    - goimports
+    - lll
+    - misspell
+    - nilerr
+    - nolintlint
+    - prealloc
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - stylecheck
+    - unconvert
+    - wastedassign
+
+linters-settings:
+  cyclop:
+    max-complexity: 20
+    package-average: 10.0
+    skip-tests: true
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+    - source: "^//go:generate "
+      linters:
+        - lll

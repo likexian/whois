@@ -1,6 +1,8 @@
-github.com/likexian/gokit v0.0.0-20190309162924-0a377eecf7aa/go.mod h1:QdfYv6y6qPA9pbBA2qXtoT8BMKha6UyNbxWGWl/9Jfk=
-github.com/likexian/gokit v0.0.0-20190418170008-ace88ad0983b/go.mod h1:KKqSnk/VVSW8kEyO2vVCXoanzEutKdlBAPohmGXkxCk=
-github.com/likexian/gokit v0.0.0-20190425151316-c6325fef5934 h1:V9ZedGFiv9OzHVDObo/+mfn0f/5DyOp3OhE2eelr2GI=
-github.com/likexian/gokit v0.0.0-20190425151316-c6325fef5934/go.mod h1:3kvONayqCaj+UgrRZGpgfXzHdMYCAO0KAt4/8n0L57Y=
-github.com/likexian/simplejson-go v0.0.0-20190409170913-40473a74d76d/go.mod h1:Typ1BfnATYtZ/+/shXfFYLrovhFyuKvzwrdOnIDHlmg=
-github.com/likexian/simplejson-go v0.0.0-20190419151922-c1f9f0b4f084/go.mod h1:U4O1vIJvIKwbMZKUJ62lppfdvkCdVd2nfMimHK81eec=
+github.com/likexian/gokit v0.25.15 h1:QjospM1eXhdMMHwZRpMKKAHY/Wig9wgcREmLtf9NslY=
+github.com/likexian/gokit v0.25.15/go.mod h1:S2QisdsxLEHWeD/XI0QMVeggp+jbxYqUxMvSBil7MRg=
+github.com/likexian/whois-parser v1.24.20 h1:oxEkRi0GxgqWQRLDMJpXU1EhgWmLmkqEFZ2ChXTeQLE=
+github.com/likexian/whois-parser v1.24.20/go.mod h1:rAtaofg2luol09H+ogDzGIfcG8ig1NtM5R16uQADDz4=
+golang.org/x/net v0.35.0 h1:T5GQRQb2y08kTAByq9L4/bz8cipCdA8FbRTXewonqY8=
+golang.org/x/net v0.35.0/go.mod h1:EglIi67kWsHKlRzzVMUD93VMSWGFOMSZgxFjparz1Qk=
+golang.org/x/text v0.22.0 h1:bofq7m3/HAFvbF51jz3Q9wLg3jkvSPuiZu/pD1XwgtM=
+golang.org/x/text v0.22.0/go.mod h1:YRoo4H8PVmsu+E3Ou7cqLVH8oXWIHVoX0jqUWALQhfY=

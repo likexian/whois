@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Li Kexian
+ * Copyright 2014-2024 Li Kexian
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Go module for domain and ip whois info query
+ * Go module for domain and ip whois information query
  * https://www.likexian.com/
  */
 
-package main
+package whois
 
-import (
-	"fmt"
-	"github.com/mailgun/whois-go"
-	"os"
+import "errors"
+
+var (
+	// ErrDomainEmpty is domain is an empty string
+	ErrDomainEmpty = errors.New("whois: domain is empty")
+
+	// ErrWhoisServerNotFound is no whois server found
+	ErrWhoisServerNotFound = errors.New("whois: no whois server found for domain")
 )
-
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Println(fmt.Sprintf("usage:\n\t%s domain [server]", os.Args[0]))
-		os.Exit(1)
-	}
-
-	var server string
-	if len(os.Args) > 2 {
-		server = os.Args[2]
-	}
-
-	result, err := whois.Whois(os.Args[1], server)
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
-
-	fmt.Println(result)
-	os.Exit(0)
-}

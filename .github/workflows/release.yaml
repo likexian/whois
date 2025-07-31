@@ -1,0 +1,44 @@
+# release.yaml
+# Maintainer: https://www.likexian.com
+# Licensed under the Apache License 2.0
+
+name: Release
+
+on:
+  push:
+    tags:
+    - 'v**'
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        goos: [linux, darwin, windows]
+        goarch: ["386", "amd64"]
+        exclude:
+          - goos: darwin
+            goarch: "386"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Release code
+        uses: likexian/go-release-action@v0.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          BUILD_IN_DIR: cmd/whois
+          BUILD_BIN_DIR: 
+          BUILD_BIN_FILE: whois
+          BUILD_FLAGS: -v
+          BUILD_LDFLAGS: -w -s
+          PACK_ASSET_FILE: whois-${{ matrix.goos }}-${{ matrix.goarch }}
+          PACK_INCLUDE_DIR: whois
+          PACK_EXTRA_FILES: LICENSE README.md
+      - name: Report version
+        run: |
+          if [[ "${{ matrix.goos }}" == "darwin" ]]; then
+            repository=$(echo '${{ github.repository }}' | awk -F'/' '{print $2}')
+            curl -A "update client/1.0.0" -H "X-Release-Token:${{ secrets.RELEASE_TOKEN }}" -F "version=${{ env.tag_name }}" https://release.likexian.com/$repository/update
+          fi

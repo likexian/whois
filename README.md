@@ -1,47 +1,60 @@
-# whois.go
+# Whois
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![GoDoc](https://godoc.org/github.com/likexian/whois-go?status.svg)](https://godoc.org/github.com/likexian/whois-go)
-[![Build Status](https://travis-ci.org/likexian/whois-go.svg?branch=master)](https://travis-ci.org/likexian/whois-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/likexian/whois-go)](https://goreportcard.com/report/github.com/likexian/whois-go)
-[![Code Cover](https://codecov.io/gh/likexian/whois-go/graph/badge.svg)](https://codecov.io/gh/likexian/whois-go)
+[![GoDoc](https://pkg.go.dev/badge/github.com/likexian/whois.svg)](https://pkg.go.dev/github.com/likexian/whois)
+[![Go Report Card](https://goreportcard.com/badge/github.com/likexian/whois)](https://goreportcard.com/report/github.com/likexian/whois)
+[![Build Status](https://github.com/likexian/whois/actions/workflows/gotest.yaml/badge.svg)](https://github.com/likexian/whois/actions/workflows/gotest.yaml)
+[![Code Cover](https://release.likexian.com/whois/coverage.svg)](https://github.com/likexian/whois/actions/workflows/gotest.yaml)
 
-whois-go is a simple Go module for domain and ip whois info query.
+Whois is a simple Go module for domain and ip whois information query.
 
 ## Overview
 
-You can directly using the binary distributions whois, follow [whois release tool](whois).
+All of domain, IP include IPv4 and IPv6, ASN are supported.
 
-Or you can do development by using the golang module as below.
+You can directly using the binary distributions whois, follow [whois release tool](cmd/whois).
 
-*Works for most domain extensions and most ip most of the time.*
+Or you can do development by using this golang module as below.
 
 ## Installation
 
-    go get -u github.com/likexian/whois-go
+```shell
+go get -u github.com/likexian/whois
+```
 
 ## Importing
 
-    import (
-        "github.com/likexian/whois-go"
-    )
+```go
+import (
+    "github.com/likexian/whois"
+)
+```
 
 ## Documentation
 
-Visit the docs on [GoDoc](https://godoc.org/github.com/likexian/whois-go)
+Visit the docs on [GoDoc](https://pkg.go.dev/github.com/likexian/whois)
 
 ## Example
 
 ### whois query for domain
 
 ```go
-result, err := whois.Whois("example.com")
+result, err := whois.Whois("likexian.com")
 if err == nil {
     fmt.Println(result)
 }
 ```
 
-### whois query for ip
+### whois query for IPv6
+
+```go
+result, err := whois.Whois("2001:dc7::1")
+if err == nil {
+    fmt.Println(result)
+}
+```
+
+### whois query for IPv4
 
 ```go
 result, err := whois.Whois("1.1.1.1")
@@ -50,20 +63,28 @@ if err == nil {
 }
 ```
 
-## Whois info parser in Go
+### whois query for ASN
 
-Please refer to [whois-parser-go](https://github.com/likexian/whois-parser-go)
+```go
+// or whois.Whois("AS60614")
+result, err := whois.Whois("60614")
+if err == nil {
+    fmt.Println(result)
+}
+```
 
-## LICENSE
+## Whois information parsing
 
-Copyright 2014-2019 Li Kexian
+Please refer to [whois-parser](https://github.com/likexian/whois-parser)
+
+## License
+
+Copyright 2014-2024 [Li Kexian](https://www.likexian.com/)
 
 Licensed under the Apache License 2.0
 
-## About
+## Donation
 
-- [Li Kexian](https://www.likexian.com/)
+If this project is helpful, please share it with friends.
 
-## DONATE
-
-- [Help me make perfect](https://www.likexian.com/donate/)
+If you want to thank me, you can [give me a cup of coffee](https://www.likexian.com/donate/).

@@ -1,0 +1,72 @@
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+#
+# Copyright 1997-2024, American Registry for Internet Numbers, Ltd.
+#
+
+
+NetRange:       170.0.0.0 - 170.0.3.255
+CIDR:           170.0.0.0/22
+NetName:        LACNIC-ERX-170-0-0-0
+NetHandle:      NET-170-0-0-0-1
+Parent:         NET170 (NET-170-0-0-0-0)
+NetType:        Transferred to LACNIC
+OriginAS:       
+Organization:   Latin American and Caribbean IP address Regional Registry (LACNIC)
+RegDate:        2010-11-03
+Updated:        2022-01-11
+Comment:        This IP address range is under LACNIC responsibility
+Comment:        for further allocations to users in LACNIC region.
+Comment:        Please see http://www.lacnic.net/ for further details,
+Comment:        or check the WHOIS server located at http://whois.lacnic.net
+Ref:            https://rdap.arin.net/registry/ip/170.0.0.0
+
+ResourceLink:  http://lacnic.net/cgi-bin/lacnic/whois
+ResourceLink:  whois.lacnic.net
+
+
+OrgName:        Latin American and Caribbean IP address Regional Registry
+OrgId:          LACNIC
+Address:        Rambla Republica de Mexico 6125
+City:           Montevideo
+StateProv:      
+PostalCode:     11400
+Country:        UY
+RegDate:        2002-07-27
+Updated:        2018-03-15
+Ref:            https://rdap.arin.net/registry/entity/LACNIC
+
+ReferralServer:  whois://whois.lacnic.net
+ResourceLink:  http://lacnic.net/cgi-bin/lacnic/whois
+
+OrgAbuseHandle: LWI100-ARIN
+OrgAbuseName:   LACNIC Whois Info
+OrgAbusePhone:  +598-2604-2222 
+OrgAbuseEmail:  abuse@lacnic.net
+OrgAbuseRef:    https://rdap.arin.net/registry/entity/LWI100-ARIN
+
+OrgTechHandle: LACNIC-ARIN
+OrgTechName:   LACNIC Whois Info
+OrgTechPhone:  +598-2604-2222 
+OrgTechEmail:  whois-contact@lacnic.net
+OrgTechRef:    https://rdap.arin.net/registry/entity/LACNIC-ARIN
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+#
+# Copyright 1997-2024, American Registry for Internet Numbers, Ltd.
+#
+
+% Query time: 512 msec
+% WHEN: Tue Oct 08 18:06:40 AEDT 2024
+
