@@ -52,6 +52,14 @@ type Client struct {
 	disableStats         bool
 	disableReferral      bool
 	disableReferralChain bool
+	useAbsoluteTimeout   bool
+}
+
+// SetAbsoluteTimeout configures whether to subtract elapsed time
+// from the timeout for each I/O operation
+func (c *Client) SetAbsoluteTimeout(enabled bool) *Client {
+	c.useAbsoluteTimeout = enabled
+	return c
 }
 
 type hasTimeout struct {
@@ -227,7 +235,12 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 	defer conn.Close()
 	elapsed := time.Since(start)
 
-	_ = conn.SetWriteDeadline(time.Now().Add(c.timeout - elapsed))
+	if c.useAbsoluteTimeout {
+		_ = conn.SetWriteDeadline(time.Now().Add(c.timeout))
+	} else {
+		_ = conn.SetWriteDeadline(time.Now().Add(c.timeout - elapsed))
+	}
+
 	_, err = conn.Write([]byte(domain + "\r\n"))
 	if err != nil {
 		// Some servers may refuse a request with a reason, immediately closing the connection after sending.
@@ -245,7 +258,12 @@ func (c *Client) rawQuery(domain, server, port string) (string, error) {
 
 	elapsed = time.Since(start)
 
-	_ = conn.SetReadDeadline(time.Now().Add(c.timeout - elapsed))
+	if c.useAbsoluteTimeout {
+		_ = conn.SetReadDeadline(time.Now().Add(c.timeout))
+	} else {
+		_ = conn.SetReadDeadline(time.Now().Add(c.timeout - elapsed))
+	}
+
 	buffer, err := io.ReadAll(conn)
 	if err != nil {
 		if len(buffer) > 0 {
