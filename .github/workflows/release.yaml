@@ -11,7 +11,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         goos: [linux, darwin, windows]
@@ -21,9 +21,9 @@ jobs:
             goarch: "386"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Release code
-        uses: likexian/go-release-action@v0.7.0
+        uses: likexian/go-release-action@v0.9.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GOOS: ${{ matrix.goos }}
@@ -33,6 +33,7 @@ jobs:
           BUILD_BIN_FILE: whois
           BUILD_FLAGS: -v
           BUILD_LDFLAGS: -w -s
+          BUILD_STATIC: true
           PACK_ASSET_FILE: whois-${{ matrix.goos }}-${{ matrix.goarch }}
           PACK_INCLUDE_DIR: whois
           PACK_EXTRA_FILES: LICENSE README.md

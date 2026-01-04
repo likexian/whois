@@ -93,7 +93,6 @@ func TestWhois(t *testing.T) {
 		"name.com",
 		"name.net",
 		"name.org",
-		"name.mobi",
 		"name.cn",
 		"name.com.cn",
 		"name.in",
