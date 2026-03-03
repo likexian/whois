@@ -28,7 +28,7 @@ import (
 
 	"github.com/likexian/gokit/xjson"
 	"github.com/likexian/gokit/xversion"
-	"github.com/freelabz/whois"
+	"github.com/likexian/whois"
 	whoisparser "github.com/likexian/whois-parser"
 	"golang.org/x/net/proxy"
 )
