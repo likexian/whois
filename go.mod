@@ -1,4 +1,4 @@
-module github.com/likexian/whois
+module github.com/freelabz/whois
 
 go 1.24.0
 
